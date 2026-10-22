@@ -1,0 +1,39 @@
+Here is the visual journey of **OTS TRANSPORT: Khuzdar Today Car Service.**
+
+---
+
+### Image 1: First Impression – Splash & Security
+
+We begin with the **Splash Screen and OTP Login**. The premium branding—featuring a stylized road and mountain pin in blue and gold—establishes an identity for "Khuzdar Today Car Service." This screen is minimalist, focusing purely on secure, number-based access.
+
+---
+
+### Image 2: The Passenger Hub – Defining the Routes
+
+Once logged in, the **Passenger Dashboard** presents the four definitive route categories from your proposal (Karachi, Quetta, Sindh, and Makran). These are rendered as high-quality visual "route cards" that make selection intuitive. The premium interface is clean, distinct from common cluttered transportation apps.
+
+---
+
+### Image 3: Building Trust – Driver & Vehicle Verification
+
+Shifting to the **Driver Interface**, we visualize the critical verification process. This high-end profile screen details the secure upload of the driver’s photo, CNIC (marked 'Secure'), and clear photos of the vehicle (a silver Toyota Corolla) including the actual registration plate 'KAR-1234'. The "Pending Approval" state ensures company control over who operates on the platform.
+
+---
+
+### Image 4: Precision Booking – Active Ride Search & Listing
+
+Back on the Passenger side, after selecting a route (e.g., Khuzdar to Karachi), we see the **Active Ride Search** results. Each listing is highly detailed, showing the driver's verified profile, the actual vehicle photo (the silver Corolla), specific departure/arrival times, and precise seating availability. Crucially, it visualizes the **Tiered Fare Structure** defined in your PRD (e.g., Rear Seat vs. Front Seat), allowing passengers to choose based on preference and transparent pricing.
+
+---
+
+### Image 5: The Differentiator – Interactive Seat Selection
+
+This screen illustrates the **Core Product Requirement: Seat Reservation**. The passenger views a sophisticated overhead layout of the specific vehicle (matching the silver Corolla), distinguishing between booked (grey) and available (green) seats. As defined in the PRD, the passenger has selected the front passenger seat (Gold highlighted, PKR 4,500). Notice the **Luggage Options** and the critical **"Temporarily Reserved" Timer** (e.g., 08:15 remaining) which prevents dynamic booking conflicts.
+
+---
+
+### Image 6: Post-Booking Confidence – Digital Ticket & Live Tracking
+
+The final image shows the completed user flow. After successful payment, the passenger receives a beautiful **Digital Ticket Overlay** containing the QR code, Booking Reference, confirmed seat (Front 1), and fare details. This transparent ticket is coupled with **Live In-Trip Tracking**. We see the silver Corolla’s GPS location moving along the stylized Khuzdar-Karachi route, complete with the requested 'Share Live Location' and 'SOS Emergency' buttons for a secure, modern travel experience.
+
+This sequence demonstrates a complete, premium ecosystem for **OTS Transport**, visualizing how your thorough PRD translates into a high-end, functional mobile application.
