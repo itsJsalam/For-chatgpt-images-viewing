@@ -1,0 +1,524 @@
+OTS TRANSPORT — COMPLETE PROJECT HISTORY, REQUIREMENTS, WORK LOG, MISTAKES, CURRENT STATE, AND HANDOFF
+Prepared: 2026-10-24
+Repository: https://github.com/itsJsalam/For-chatgpt-images-viewing
+Purpose: Preserve OTS project context across conversations and help future work resume accurately.
+
+IMPORTANT ACCURACY NOTE
+This is a detailed reconstruction from conversation context and repository evidence available when written. It is not a verbatim export of every message ever sent. It separates requested features, source changes, database changes, CI build results, and end-to-end testing. Do not interpret a code change or successful build as proof a complete user workflow works.
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+
+Project: OTS TRANSPORT / Khuzdar Today Car Service.
+Goal: A premium intercity ride-booking / carpooling service starting in Khuzdar, Pakistan, with routes such as Khuzdar–Karachi, Khuzdar–Quetta, Sindh, and Makran.
+Primary platform: Android first. iOS and mobile web are future goals, not verified completed deliverables.
+Backend: Supabase.
+Source control / build automation: GitHub and GitHub Actions.
+Website hosting: Vercel.
+Design references: For-chatgpt-images-viewing GitHub repository.
+Payment options requested: Easypaisa and JazzCash, initially through manual transfers plus admin verification.
+Budget constraint: Use existing tools and free tiers where possible. Never purchase credits, start a subscription, enable a paid plan, or incur charges without explicit approval.
+
+The user wants actual implementation rather than advice alone. They are a beginner and prefer plain language, direct steps, and honest progress reports. They asked for the work to continue across tasks instead of stopping after every small item. If one integration is blocked, document it and continue independent tasks. Do not claim work is complete without evidence.
+
+================================================================================
+2. AUTHORIZED REPOSITORIES, SYSTEMS, AND SAFETY
+================================================================================
+
+Repositories the user explicitly authorized for OTS work on 2026-10-22:
+1. Passenger/driver Android app: https://github.com/itsJsalam/Khuzdar-OTS-car-service
+2. Private admin Android app: https://github.com/itsJsalam/OTS-Transport-Admin
+3. Additional authorized repo: https://github.com/itsJsalam/literate-winner
+4. Reference images and visual notes: https://github.com/itsJsalam/For-chatgpt-images-viewing
+
+The user said these four repos may be used and that unrelated content in them could be deleted. Do not delete content casually: preserve the reference images, useful history and unrelated material unless a specific deletion is clearly necessary. Earlier in the project the user had restricted work to the public app repo and admin repo, with other repos off-limits unless explicitly authorized; the later authorization expanded the allowed set to the four above.
+
+Known source paths:
+- Passenger UI: app/src/main/java/com/ots/transport/MainActivity.kt
+- Passenger Supabase API: app/src/main/java/com/ots/transport/SupabaseApi.kt
+- Admin UI: app/src/main/java/com/ots/admin/ConnectedAdminScreen.kt
+- Admin API: app/src/main/java/com/ots/admin/SupabaseAdminApi.kt
+
+Supabase:
+- Project ID: konrdhiwgluwmaakskdr
+- URL: https://konrdhiwgluwmaakskdr.supabase.co
+- Android code must contain only a public/publishable client key. Never put a Supabase service-role key, privileged secret, wallet PIN, password, Google client secret or private token in an Android app or public repository.
+- The user said full access to Supabase and Vercel was available for OTS work. Still do not weaken security just to make a demo work.
+- User supplied a payment recipient phone number in private conversation. This public documentation intentionally does not reproduce it. Do not publish it or hardcode it without reconfirming the intended display and account ownership.
+
+Vercel email landing page:
+https://ots-auth-portal.vercel.app/
+A successful deployment was reported, but deployment alone does not prove Supabase email confirmation works end-to-end.
+
+================================================================================
+3. NON-NEGOTIABLE PRODUCT RULES
+================================================================================
+
+A. Separate apps
+- Public passenger/driver app and private admin app must be separate.
+- Never expose an admin menu, admin login option or admin access path in the public app.
+- Hiding an admin button is not security. Admin operations must verify server-side admin authorization.
+- Admin access is for the owner or specifically selected trusted people, not arbitrary users.
+
+B. One driver account, one registered car
+- Current decision: one driver registers one vehicle. Do not implement multiple vehicles per driver unless the user explicitly changes this later.
+- A driver must be approved by an administrator before publishing trips.
+- Review changes to identity/vehicle details. Critical edits should trigger re-review if the database/business rules support it; verify actual enforcement before claiming it.
+
+C. Exactly five seats in a standard car
+The user repeated this correction and explicitly said it is important:
+- Five seats total in the car.
+- One seat for the driver, never bookable.
+- One front passenger seat, bookable.
+- Three rear passenger seats, bookable.
+- Maximum four passengers.
+- Seat 1 = front passenger; Seats 2, 3 and 4 = rear passengers.
+- Do not count the driver seat in passenger capacity.
+- Selected seat labels, passenger count, database capacity and the visual car must agree.
+- A specific approved vehicle may have fewer passenger seats, but the standard maximum is four. Do not silently change existing live vehicle records.
+
+D. Trip and booking correctness
+- Only approved drivers can publish.
+- Show origin, destination, departure time, estimated arrival when available, fare, available passenger seats, driver details and vehicle information.
+- Prevent double booking at the database level, not merely by disabling a button in the UI.
+- A temporary seat-hold countdown must correspond to a real server-side expiry; a decorative timer is unacceptable.
+- If a transfer is submitted and waiting for admin review, do not release the seat just because a timer expires before the admin checks the transfer. Use a clearly defined policy.
+- Expired unpaid holds without pending transfer submissions should release seats safely.
+- Confirmed bookings must not lose seats due to a stale client timer.
+- Cancellation, accidental seat selection and booking status need clear user-facing flows.
+
+E. Visual design
+- The user supplied a blue/gold design reference and logo and repeatedly requested a complete redesign.
+- The app opening/home screen must follow the blue reference, not the old/basic layout.
+- User reported installing an APK and seeing no visible change. This is a serious release communication failure; future APK links must identify exact commit and workflow run.
+- User also wants a realistic raised/3D-like car seat-selection screen, not generic flat rectangular buttons.
+- Use the supplied OTS logo “for now.”
+- Do not claim the new look is finished until the exact latest APK is installed and compared to the reference screenshots.
+
+F. Cost controls
+- No purchases/subscriptions without explicit approval.
+- Manual wallet transfer plus admin review is not a provider-integrated payment gateway.
+- SMS OTP requires a configured SMS provider and may incur costs. An API call existing in code does not guarantee free SMS.
+- Google sign-in requires valid Google Cloud and Supabase OAuth configuration.
+- Opening a Google Maps directions URL is not embedded mapping or live GPS.
+- Respect mapping provider terms, location permissions and user privacy.
+
+================================================================================
+4. REFERENCE DESIGN AND EXPECTED SCREENS
+================================================================================
+
+Reference notes:
+https://github.com/itsJsalam/For-chatgpt-images-viewing/blob/main/My%20idea%20in%20images.txt
+
+The reference file describes six screens:
+
+1. Splash / security: premium blue and gold branding, stylized road/mountain pin logo, secure phone-based access.
+2. Passenger hub: polished route cards for Karachi, Quetta, Sindh and Makran. The UI should be clean and premium rather than cluttered.
+3. Driver/vehicle verification: driver photo, CNIC securely handled, vehicle photos, registration plate and a visible “Pending Approval” state.
+4. Ride search/listing: route, driver, vehicle, departure and arrival estimates, available seats and fares. Show real data, not placeholders disguised as live information. The original reference mentions tiered front/rear fares; confirm a real pricing policy before implementing differentiated prices.
+5. Seat selection: realistic top-down or 3D-like vehicle representation. Booked seats disabled/grey; available seats clearly distinguished; selected seat highlighted gold; luggage option and fare; server-backed temporary hold countdown. Driver seat cannot be selected. Seat 1 front passenger; Seats 2–4 rear passengers.
+6. Ticket/tracking/safety: booking reference, seat(s), fare, ticket status and QR. A QR containing only a booking ID is not proof of payment or boarding. Live GPS, share location and SOS require real backend and device-permission implementation.
+
+User's specifically referenced directory:
+https://github.com/itsJsalam/For-chatgpt-images-viewing/tree/main/newfolder
+
+It contains:
+- Screenshot_20261023-105416.jpg
+- Screenshot_20261023-105503.jpg
+- A 2-byte placeholder file named “I want it like this image.”
+
+The user said one screenshot shows the current app and the blue one is the desired opening/home layout. They asked repeatedly why the app had not changed. This blue screenshot is a primary acceptance reference. Always compare the actual latest APK on a device with the blue screenshot. The latest source commits later show a blue home redesign, but the user still needs to install and verify the correct build. The 3D seat screen is a separate requirement.
+
+================================================================================
+5. AUTHENTICATION AND EMAIL CONFIRMATION
+================================================================================
+
+User reported Supabase confirmation links going to:
+http://localhost:3000/#error=access_denied&error_code=otp_expired&error_description=Email+link+is+invalid+or+has+expired&sb=
+
+Desired behaviour:
+- Supabase email confirmation links should return to the deployed OTS website, not localhost.
+- Website should show understandable success, expired-link and failure messages and provide a way back to the app/sign-in page.
+- The user said custom email/domain work can be done later; do not claim a branded sender is configured.
+- Correct Supabase Site URL and redirect allowlist, including deployed website and app deep link as appropriate.
+- Confirmation links may expire or be single-use. Handle expired links clearly rather than showing raw errors.
+- A source change was made to pass the deployed URL as the Supabase signup redirect_to parameter. It needs an actual end-to-end test.
+- Do not disable email confirmation as a workaround.
+- Earlier signup returned “email rate limit exceeded.” Check inbox/spam, wait, and review Supabase email provider limits. Do not weaken verification.
+- Known callback URL: https://konrdhiwgluwmaakskdr.supabase.co/auth/v1/callback
+- Expected Android deep link previously discussed: ots-transport://auth-callback
+- Google OAuth PKCE support was reported in code, but Google Cloud OAuth client, Supabase Google provider and redirect allowlist need verification. Do not claim “Continue with Google” works until tested with correct credentials on device.
+
+Phone/SMS OTP:
+- A phone normalization/send OTP/verify OTP API and SMS UI groundwork were added.
+- This does not guarantee delivery. An SMS provider must be enabled and configured in Supabase Auth or another selected provider, potentially at a cost.
+- Common Pakistani number forms such as 03XXXXXXXXX and +92XXXXXXXXXX were handled in source; edge cases and profile/role creation still need tests.
+- Phone signup must not allow the client to assign privileged roles.
+
+================================================================================
+6. EASYPaisa / JAZZCASH PAYMENT DESIGN
+================================================================================
+
+The user requested two visible payment choices:
+- Easypaisa
+- JazzCash
+
+The user provided a wallet recipient number privately for use by the project. Do not put the full number in this public file or commit it without explicit reconfirmation. Do not put wallet PINs or OTPs in source code.
+
+Intended manual workflow:
+1. Passenger selects seat(s).
+2. Server creates a pending-payment booking and a time-limited seat hold.
+3. App shows chosen wallet method, amount, account destination (after owner confirms), instructions and transaction reference input.
+4. Passenger transfers money in the real wallet app.
+5. Passenger submits a reference. This is only a claim, not proof money arrived.
+6. Admin app displays the submission with amount, method, reference, passenger/trip context and status.
+7. Admin checks the actual wallet transaction and verifies or rejects.
+8. Verification confirms the booking; rejection cancels/releases it.
+9. Expired holds without a pending transfer should be released. Submitted transfers awaiting review should not be auto-cancelled prematurely.
+10. Audit the decision and show clear passenger-facing status.
+
+Source/database groundwork reported in recent work:
+- Admin API model/query for payment submissions and RPC review call.
+- Admin “Payments” screen with manual verify/reject controls.
+- SQL functions for payment review and expired-hold cleanup.
+- Passenger booking model reads payment submission status/method.
+- Booking history can offer “Continue payment” for a pending booking with no submitted reference.
+- Seat-selection trigger/function intended to enforce passenger count, allowed seat labels, duplicate labels and overlapping active bookings.
+- Ticket wording was changed to “DIGITAL BOOKING TICKET” and explains that the QR is a booking reference, not an independently verified boarding pass.
+
+Important limitations:
+- This is not an automatic wallet integration. Manual admin verification is required.
+- The latest admin build must be verified after payment UI edits. The known successful admin build below predates some payment changes.
+- Check SQL grants, RLS, foreign-key relationships used by PostgREST nested reads, admin RPC authorization and race conditions.
+- Payment review function was changed to SECURITY INVOKER and intended to restrict execute to authenticated users, while checking private.is_active_admin(). Confirm actual effective grants and RLS.
+- Transaction references can be fabricated. Admin must inspect the real wallet transaction before approving.
+- No provider callbacks/webhooks, refunds, payment reconciliation, commission, driver payouts or automated wallet settlement are confirmed complete.
+
+================================================================================
+7. MAPS, LIVE GPS AND SAFETY
+================================================================================
+
+The user said to do mapping work and leave their own configuration/setup for later if necessary. Tools discussed included OpenStreetMap + Leaflet, Mapbox, Google Maps, Vercel and Supabase.
+
+A basic Google Maps directions URL was added from Khuzdar to the selected destination. This is only a route-opening shortcut. It is not:
+- an embedded interactive map,
+- continuous driver GPS tracking,
+- passenger live tracking,
+- live location sharing,
+- an SOS dispatch system,
+- a safe-arrival check-in.
+
+Still to implement and test:
+- Location permissions and consent.
+- Secure live driver GPS updates.
+- Passenger access to trip-specific live location.
+- Share live location.
+- Real SOS behaviour and destination/contact logic.
+- Arrival-time estimates.
+- Push notifications for driver approval, booking, payment, cancellation, departure and arrival.
+- Safe-arrival flow.
+Do not create decorative safety buttons that do nothing, and do not label a static map “live tracking.”
+
+================================================================================
+8. TOOL / STACK DISCUSSIONS
+================================================================================
+
+The user asked whether Flutter, React Native, Supabase, Firebase, Leaflet/OpenStreetMap, Mapbox, GitHub, Vercel, SMS/WhatsApp tools, Figma and Canva could work for OTS. They asked for each new tool to be explained one by one and whether app builders require paid plans to export APKs.
+
+Guidance:
+- Current Android app is native Kotlin/Jetpack Compose. A blue redesign was made in this codebase. Flutter/React Native are alternatives, not additional dependencies needed just to change the UI. Migrating now would be a major rewrite.
+- Supabase is already the backend and should remain authoritative unless there is a concrete reason to migrate.
+- GitHub Actions can build an APK from the existing Android project. A paid app-builder plan is not inherently required to get an APK if the GitHub Actions artifact is available.
+- APK creation, APK signing and Google Play publication are separate steps. A successful GitHub build does not automatically publish to Play Store.
+- Vercel hosts the verification website and could host a future web dashboard.
+- OpenStreetMap/Leaflet can be useful for web maps; Google Maps URL can open directions. Embedded maps, directions APIs, geocoding and live tracking have different requirements and possible costs.
+- Do not migrate to Firebase only to obtain OTP without comparing configuration, cost, migration and consistency tradeoffs.
+- Figma/Canva are design/marketing tools, not required runtime components.
+- User wants free tiers and legitimate free allowances; do not buy anything without approval.
+
+================================================================================
+9. MISTAKES AND LESSONS — PRESERVE CANDIDLY
+================================================================================
+
+1. The blue home redesign was requested repeatedly. Earlier replies discussed design or other features, while the APK the user installed looked unchanged. This is a major delivery and communication failure. Future work must tie the APK to a precise commit/run and verify the installed build against the blue screenshot. Never give an old artifact and imply it contains the latest UI.
+
+2. An early workflow used a feature branch and PR #1 for ride-card/seat/QR work. The user asked why changes were not being made directly on main. They later explicitly authorized direct work on main. Subsequent edits were committed directly to main. Do not return to PR-only workflow unless the user requests it or there is a concrete safety reason. Explain any branch choice.
+
+3. A code edit introduced escaped Kotlin interpolation in a payment instruction string; a later commit corrected it. This demonstrates the need for compiler verification after each Kotlin change.
+
+4. Some reports blurred the difference between a source edit, a database migration, a CI build and a tested feature. These are different states. Always report them separately:
+   - source changed,
+   - migration applied,
+   - build passed,
+   - artifact produced,
+   - installed on device,
+   - end-to-end tested.
+   Do not collapse them into “done.”
+
+5. The original seat layout was too generic/flat for the requested 3D car. Fixing seat count does not mean the visual acceptance requirement is met. The blue home screen and 3D car screen are separate deliverables.
+
+6. QR initially encoded a booking reference. This identifies a booking but does not prove payment or ticket validity. The wording was corrected to avoid falsely calling it a verified boarding pass. Server-side validation remains required.
+
+7. The payment UI/database groundwork does not mean Easypaisa/JazzCash is integrated with the wallet provider. The interim design is manual transfer plus admin review.
+
+8. OTP UI/API cannot deliver SMS without provider setup. A Google sign-in button cannot authenticate without OAuth configuration. A deployed Vercel site does not prove Supabase redirects and expired-link flows work.
+
+9. User asked for continuous work and to keep working on independent tasks if one is blocked. Maintain a task ledger and keep progressing around blockers.
+
+10. Do not promise work continues in the background when no actual tool operation is happening. Progress reports must reflect actions actually performed and evidence available.
+
+11. The user prefers direct plain language and candid feedback. Avoid vague reassurance, repeated questions for decisions already made, and claiming the app is ready before real testing.
+
+12. User asked that owner-only work be left until later where necessary. Prepare implementation and report only precise remaining owner actions, such as OAuth credentials, SMS provider configuration/cost approval, wallet recipient confirmation, custom sender domain or release signing.
+
+================================================================================
+10. REPOSITORY AND BUILD EVIDENCE OBSERVED 2026-10-24
+================================================================================
+
+Passenger app repo:
+https://github.com/itsJsalam/Khuzdar-OTS-car-service
+
+Recent main commits observed on 2026-10-23:
+- d0cf4bb186ac82915ba5cf2250b11bbf22175c9 — “Polish OTS destination cards and blue search action”
+- 19c6d18c301f37660d68f0484ba7a904437943f9 — “Redesign OTS passenger home to match blue reference layout”
+- cf2768331b62fdd661105143066906188584f9a0 — “Fix route card click modifier in blue home redesign”
+
+Latest observed passenger Actions run:
+- Run ID 39938227711
+- Workflow “Build OTS Android APK”
+- Commit cf2768331b62fdd661105143066906188584f9a0
+- Status completed, conclusion success
+- URL https://github.com/itsJsalam/Khuzdar-OTS-car-service/actions/runs/39938227711
+- Earlier artifact name: OTS-Transport-APK. Inspect the current run artifact listing before providing precise download steps.
+This confirms CI successfully built the passenger main branch at that commit. It does not prove the user installed this artifact, that the visual design exactly matches the reference, or that payment/auth/map/safety workflows work end-to-end.
+
+Admin app repo:
+https://github.com/itsJsalam/OTS-Transport-Admin
+
+Last known successful admin build:
+- Run ID 39863697375
+- Workflow “Build OTS Admin APK”
+- Commit 040c3f28fc1625747a895a5b0d49486cce930f82
+- Completed successfully
+- URL https://github.com/itsJsalam/OTS-Transport-Admin/actions/runs/39863697375
+This run is from 2026-10-22 and predates some later payment-review code edits. Do not call it the latest verified build of the new payment screen. Trigger or locate a newer build and inspect its logs/artifact.
+
+Earlier public app PR:
+https://github.com/itsJsalam/Khuzdar-OTS-car-service/pull/1
+- Branch design-reference-alignment.
+- Title: “Improve OTS ride cards, seat layout and digital booking ticket”.
+- It included ZXing QR generation and ride/seat layout work.
+- It was open/unmerged at last known check, before more direct main changes. Check its current state before merging anything. It may be stale or overlapping; do not merge blindly.
+
+Supabase work reported:
+- public.cleanup_expired_ots_payment_holds()
+- public.admin_review_booking_payment(uuid,text,text)
+- public.guard_booking_seat_selection() (function/trigger)
+- Payment-review RPC intended to use SECURITY INVOKER and check private.is_active_admin().
+- Cleanup logic intended not to cancel a pending-payment booking when a submitted payment is still pending review.
+- Seat guard intended to enforce passenger capacity <= 4, Seat 1–4 labels, unique labels and no overlapping active bookings.
+Check actual deployed definitions, triggers, grants, RLS and security advisors before relying on these protections. A successful migration call does not prove correct runtime behaviour. Avoid destructive tests against real bookings.
+
+Vercel:
+- https://ots-auth-portal.vercel.app/
+- Successful deployments were reported, but actual confirmation link and expired-link behaviour still need end-to-end verification.
+
+================================================================================
+11. CURRENT IMPLEMENTATION STATUS — DO NOT OVERSTATE
+================================================================================
+
+BLUE HOME / OPENING SCREEN
+- Source changes on main are evidenced by the blue redesign commit.
+- The latest observed passenger build succeeded.
+- Real-device comparison with the blue reference and confirmation of the logo are still required.
+- The user should not be sent an older APK again.
+
+LOGO
+- User explicitly requested the supplied logo be used for now.
+- Verify the app icon, splash/home branding and actual installed build contain the correct asset. Do not assume it was included.
+
+3D CAR SEAT SCREEN
+- Earlier code had a generic layout and was not the realistic car visual the user requested.
+- Some work corrected the capacity and seat labels, but this does not prove a proper 3D/top-down car illustration exists.
+- Required visual: driver seat disabled, front passenger Seat 1, rear Seats 2–4, available/booked/selected states, matching actual vehicle capacity.
+- If necessary, bundle a local vector or image asset designed for this car-seat screen and overlay functional selectable areas. Do not rely on a remote image URL for a critical booking screen.
+
+DRIVER APPROVAL
+- Approval-gated trip publishing exists as a core requirement and has source/database groundwork.
+- Test pending driver cannot publish, approved driver can publish only with their registered approved vehicle, and admin can approve/reject.
+
+PAYMENTS
+- Source and SQL groundwork exist.
+- Latest admin build after payment review edits is not verified in the recorded evidence.
+- End-to-end manual transfer submission/admin review needs testing.
+
+AUTH
+- Phone OTP API/UI groundwork exists but provider configuration and real delivery are unverified.
+- Google OAuth configuration/testing is unverified.
+- Email redirect code updated; real signup confirmation, expired links, localhost removal and app return need end-to-end testing.
+- Custom sender/domain is not complete.
+
+MAP
+- Basic Google Maps directions shortcut added; live GPS is not established.
+
+SECURITY
+- RLS, private CNIC/photo storage, admin grants, auth role assignment, payment RPC and security warnings require review.
+- Never expose service-role keys.
+- Keep private documents in private storage and use properly authorized short-lived URLs.
+
+Other discussed but not confirmed complete:
+- Real-time seat availability and real server-backed seat-hold countdown.
+- Actual driver and vehicle imagery in ride listings.
+- Verified QR against server booking/payment state.
+- Cancellation of accidental bookings.
+- Arrival time consistency.
+- Intermediate stops and admin-configurable fares.
+- Live tracking, share location, SOS, safe-arrival.
+- Notifications.
+- Refunds, commission, driver payouts and reconciliation.
+- iOS and full mobile web.
+- Legal/privacy review and production rollout.
+
+================================================================================
+12. RELEASE CHECKLIST
+================================================================================
+
+Before sending an APK:
+[ ] Verify exact commit SHA included in the build.
+[ ] Verify GitHub Actions completed successfully.
+[ ] Verify artifact exists and can be downloaded.
+[ ] Clearly identify passenger app vs admin app.
+[ ] Install on a real Android device.
+[ ] Compare the home screen with the blue reference screenshot.
+[ ] Verify the correct logo.
+[ ] Verify route cards and search action.
+[ ] Verify settings, passenger sign-in/sign-up and driver sign-in/sign-up are accessible.
+[ ] Verify back navigation and language persistence if applicable.
+[ ] Confirm public app has no admin menu.
+[ ] Test email confirmation and expired link.
+[ ] Test Google only after OAuth configuration.
+[ ] Test SMS only after provider configuration and any cost approval.
+[ ] Test driver application and document upload.
+[ ] Confirm unapproved driver cannot publish.
+[ ] Confirm one driver account maps to one vehicle.
+[ ] Confirm maximum four bookable passenger seats and driver seat excluded.
+[ ] Test two users trying to reserve the same seat.
+[ ] Test hold expiry, pending payment submission, admin verification and rejection.
+[ ] Verify passenger sees accurate booking state.
+[ ] Confirm QR wording and server verification limitations.
+[ ] Confirm Google Maps route opens correctly.
+[ ] Do not claim live GPS/SOS/share-location unless tested.
+[ ] Check RLS, storage privacy, admin grants, SQL functions and security advisor findings.
+[ ] Test small screens, text overflow, offline/network failures and process restart.
+[ ] Capture screenshots or recording for acceptance review.
+[ ] Document any blocker and continue independent work.
+
+================================================================================
+13. IMPORTANT LINKS
+================================================================================
+
+Passenger app source:
+https://github.com/itsJsalam/Khuzdar-OTS-car-service
+
+Passenger APK build run observed successful:
+https://github.com/itsJsalam/Khuzdar-OTS-car-service/actions/runs/39938227711
+
+Admin app source (private):
+https://github.com/itsJsalam/OTS-Transport-Admin
+
+Last known successful admin build, older than latest payment edits:
+https://github.com/itsJsalam/OTS-Transport-Admin/actions/runs/39863697375
+
+Vercel email landing page:
+https://ots-auth-portal.vercel.app/
+
+Visual reference repository:
+https://github.com/itsJsalam/For-chatgpt-images-viewing
+
+Visual design notes:
+https://github.com/itsJsalam/For-chatgpt-images-viewing/blob/main/My%20idea%20in%20images.txt
+
+Newfolder with two screenshots:
+https://github.com/itsJsalam/For-chatgpt-images-viewing/tree/main/newfolder
+
+A successful CI run is not automatically a direct APK link. Open the run, inspect Artifacts and download the OTS-Transport-APK artifact. If the artifact expired or is missing, start a new build and verify it.
+
+================================================================================
+14. PRIORITY ROADMAP
+================================================================================
+
+Priority 0 — stop stale-build confusion
+1. Use the successful passenger build after the blue redesign commits.
+2. Verify the actual blue opening screen and supplied logo on device.
+3. Compare screenshot against the reference.
+4. Implement the requested realistic 3D/top-down car screen.
+5. Rebuild after each Kotlin change.
+
+Priority 1 — core booking correctness
+1. Verify trip data and availability are server-backed.
+2. Enforce five total seats: driver + four passenger seats.
+3. Enforce one vehicle per driver.
+4. Enforce driver approval before publishing.
+5. Test server-side double booking and hold expiry.
+6. Test passenger cancellation and booking history.
+7. Ensure ticket status and QR claims are honest.
+
+Priority 2 — payments
+1. Audit schema, grants, RLS and RPC.
+2. Confirm owner-approved wallet display details.
+3. Show separate Easypaisa and JazzCash options.
+4. Submit a test reference and verify it appears in admin.
+5. Test admin verify/reject and passenger status.
+6. Keep manual review clearly distinct from automatic wallet verification.
+
+Priority 3 — auth/website
+1. Test real Supabase confirmation link.
+2. Confirm Site URL and redirect allowlist.
+3. Render a useful expired-link message.
+4. Test app deep-link return.
+5. Configure and test Google OAuth.
+6. Configure SMS provider only with user approval for any costs.
+7. Leave custom email domain/sender for later if needed.
+
+Priority 4 — admin app
+1. Build the latest admin source after payment changes.
+2. Verify only authorized admins can use it.
+3. Test drivers, vehicles, trips, bookings, users and payments.
+4. Ensure public app cannot access admin-only operations.
+
+Priority 5 — maps and safety
+1. Improve mapping beyond a simple external directions URL if needed.
+2. Implement permissions/consent.
+3. Implement secure live GPS and passenger tracking.
+4. Implement location sharing.
+5. Implement genuine SOS behaviour.
+6. Add notifications and safe-arrival flow.
+
+Priority 6 — launch hardening
+1. Device/network/offline tests.
+2. Audit CNIC privacy, storage, RLS, roles and secret handling.
+3. Add terms, privacy, cancellation/refund policies.
+4. Review Play Store signing and publishing requirements.
+5. Consider iOS/web after Android core is reliable.
+
+================================================================================
+15. RULES FOR FUTURE WORK / NEXT CHAT
+================================================================================
+
+- Start by reading this file and checking live repository state. This document is a handoff, not a guarantee that the repository has not changed.
+- The user values action but not false assurances. Report exact commit, run ID, artifact and test evidence.
+- User authorized direct main-branch changes. Use main when appropriate; if using a branch or PR, explain the concrete reason first.
+- Do not delete unrelated material merely because broad permission exists. Preserve reference images and useful OTS history.
+- Maintain a task ledger with complete / partial / blocked / not started states.
+- Continue independent work when one provider/configuration is blocked.
+- Never spend money or enable paid services without explicit approval.
+- Never repeat credentials or secrets. Do not publish passwords, tokens, service-role keys, wallet PINs or unnecessary personal data.
+- Do not claim APK is latest unless run and commit are checked.
+- Do not call the app launch-ready before end-to-end tests.
+- Do not call a UI control functional unless its real action and backend path are tested.
+- In every report distinguish code changed, migration applied, build passed, artifact available, installed on device and end-to-end tested.
+- The five-seat rule and blue/gold visual reference are binding requirements.
+- The user has been frustrated by delays and stale APKs. Acknowledge issues, avoid empty assurances, and show evidence.
+
+END OF OTS TRANSPORT HANDOFF
