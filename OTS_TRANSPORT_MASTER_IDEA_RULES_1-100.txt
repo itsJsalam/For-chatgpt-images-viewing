@@ -678,3 +678,6 @@ When a driver cancels a confirmed trip, the company should try to arrange a suit
 FD-08 — Automatically release expired seat holds
 When a passenger selects a seat and starts checkout, the system may place a temporary 10-minute hold on that seat. If booking confirmation/payment is not completed before the hold expires, the backend automatically releases the seat so other passengers can book it. Hold creation, expiry, release, and confirmation must be enforced atomically by the backend to prevent two passengers from confirming the same seat for overlapping trip segments. An expired hold must not be treated as a confirmed booking.
 
+FD-09 — Retry payment while a seat hold remains active
+If payment fails or the payment provider times out, show the passenger a clear “Retry payment” option while their 10-minute seat hold remains active, along with the remaining hold time. Retrying payment must not silently extend the hold. If the hold expires before a successful, server-verified booking confirmation, release the seat and clearly tell the passenger. Handle delayed or duplicate provider callbacks idempotently so a late payment result cannot create a duplicate booking or reserve an already-released seat; if money is captured after the hold has expired and the booking cannot be honored, flag it for a safe refund/reconciliation process.
+
