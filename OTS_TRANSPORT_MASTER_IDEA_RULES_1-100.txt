@@ -672,3 +672,6 @@ The standard passenger cancellation refund policy applies to all passenger booki
 - The time calculation starts from booking confirmation, not from the scheduled departure time.
 - Any authorized exception must be recorded with the decision, reason, responsible authorized person, and financial adjustment history. Preserve the original booking, cancellation, and refund records.
 
+FD-07 — Passenger may choose an immediate full refund after driver cancellation
+When a driver cancels a confirmed trip, the company should try to arrange a suitable replacement driver and/or vehicle without charging passengers extra. Once the passenger is informed of the cancellation, the passenger may choose a 100% refund immediately instead of waiting for a replacement. If no suitable replacement is available, the passenger receives a 100% refund. Preserve the original booking and cancellation history, record the passenger's choice, and reconcile any financial adjustment without altering the original transaction record.
+
