@@ -1,0 +1,486 @@
+OTS TRANSPORT — MASTER IDEA, CHANGE LOG, ARCHITECTURE, AND RULES 1–100
+Prepared: 24 October 2026
+Repository: https://github.com/itsJsalam/For-chatgpt-images-viewing
+Document status: Planning / requirements specification. This file records the intended product; it does NOT claim the features have been built or tested.
+
+====================================================================
+IMPORTANT STATUS AND HOW TO READ THIS FILE
+====================================================================
+
+This document consolidates the OTS Transport idea, confirmed changes, the latest 100-rule discussion, and important product/security requirements. Rules 44–100 are captured from the available numbered-rule checkpoint. The exact original wording of every early numbered rule (1–43) was not available in the retrieved conversation context, so Rules 1–43 below are a careful consolidation of the accepted foundational requirements, not a guarantee of verbatim historical numbering. Where a technical choice is still provisional or a provider/cost must be verified, this document says so instead of pretending it is settled.
+
+No code, app, database, deployment, repository application, or external resource has been changed by the requirements themselves. The user asked to save this specification as a text file. Implementation requires a separate explicit decision.
+
+====================================================================
+1. THE COMPLETE IDEA
+====================================================================
+
+OTS Transport / Khuzdar Today Car Service is intended to be a premium, safety-focused intercity transport and seat-booking platform beginning in Khuzdar, Balochistan, Pakistan, and supporting routes across Balochistan and other parts of Pakistan. It is designed around scheduled rides, transparent seat-by-seat fares, vehicle/seat selection, digital tickets, luggage tracking, trip communications, live GPS, and emergency assistance. It should feel like a polished, trustworthy transport product rather than a rough demo.
+
+The service may support cars/sedans, hi-roof vans, Coasters, and buses, with vehicle-specific seating layouts and fares. Routes can include intermediate stops, allowing a seat to be sold for one segment and reused for a later non-overlapping segment of the same trip. For example, a seat may be reserved from Quetta to Khuzdar and then become available for Khuzdar to Karachi, provided the route segments do not overlap and the timing/capacity rules validate.
+
+The starting budget preference is PKR 0 and free-first tools/services. This is a target, not a promise that every production feature can run for free. SMS/OTP, WhatsApp business messaging, maps/GPS usage, hosting, storage, payment gateways, app distribution, and some operational scale may introduce costs or provider limits. Any paid requirement must be identified before commitment; do not buy credits or subscriptions without explicit approval.
+
+====================================================================
+2. THE THREE-PART SYSTEM ARCHITECTURE
+====================================================================
+
+APP 1 — PASSENGER + DRIVER ANDROID APP
+One Android app with distinct passenger and driver experiences, clear mode selection, separate authentication/registration flows where needed, and role-based navigation. Passengers search and book; drivers apply, manage approved vehicle/trips, and operate assigned journeys. One driver is registered to one car in the current plan, not multiple cars. That may be reconsidered only in a future change approved by the user.
+
+APP 2 — OPERATIONS AND STAFF ANDROID APP
+A separate app for the three operational business owners and their authorized managers/workers. The three operational owners are actual business owners, not ordinary staff. The app supports driver/document review, route and stop management, schedules/fares, bookings, cancellations/refunds, staff management, checkpoint/ticketing work, breakdown response, complaints, and operational audit. Permissions are role-specific.
+
+SILENT OWNER — ONE PRIVATE WEBSITE
+A separate, private website for exactly one Silent Owner account. This is not the same as the three operational owners. It provides protected backend/database access, system-wide settings, emergency safety controls, private security alerts, system health, secure backups/restoration, and high-risk administrative actions. The Silent Owner and this website must remain undiscoverable to passengers, drivers, operational owners, managers, workers, and ordinary operational reports/logs. It must not be exposed in either app's navigation, API responses, or routine business reporting.
+
+BACKEND
+The likely stack is Supabase/PostgreSQL with server-enforced authorization, authentication, protected storage, and realtime capabilities, subject to a later architecture/security review. The backend—not a hidden button or client-side check—must enforce permissions and emergency freeze rules. Kotlin + Jetpack Compose is the intended Android direction. A Next.js/React-style private website is a possible Silent Owner implementation. These are planning choices, not a statement that production deployment is complete.
+
+====================================================================
+3. IMPORTANT CHANGES FROM EARLIER IDEAS
+====================================================================
+
+1. Three operational owners are actual business owners, separate from workers and managers.
+2. Exactly one separate Silent Owner exists. It is invisible to all operational users and has absolute system authority through a private website.
+3. Maintenance mode was moved OUT of the Silent Owner website. Maintenance mode belongs only to the three operational owners' accounts. Any one operational owner can activate, schedule, change, end, or cancel it. Managers/workers can only request or report maintenance.
+4. An ordinary operational freeze and the Silent Owner emergency freeze are different. Owners can lift an ordinary freeze; only the Silent Owner can lift its own emergency freeze.
+5. One driver is registered to one car in the current design; do not support multiple cars under one driver account for now.
+6. A standard car layout has five seats total: one driver seat, one front passenger seat, and three rear passenger seats.
+7. Creating/replacing an operational owner requires each of the three existing operational owners' individual OTP approvals. No two-of-three bypass. If any owner is unavailable, the request remains blocked. The Silent Owner can independently override owner administration.
+8. Cancellation policy is based on elapsed time after booking confirmation, not time remaining before departure: within the first 8 hours, 100% refund; after the first 8 hours, 75% refund and 25% retained. Exactly 8 hours counts as after the first eight-hour period and receives 75%.
+9. Driver cancellation should not harm passengers: attempt a suitable replacement; company bears replacement extra cost; if no suitable replacement exists, passengers receive a full refund.
+10. A passenger who misses departure for reasons within their control is a no-show with no automatic refund; company-caused delays or incorrect information receive protection and may require replacement/full refund.
+11. English and Urdu are required across both apps and the Silent Owner website where appropriate, with correct Urdu right-to-left layout.
+12. First-launch language choice is shown once, remembered, and changeable in Settings.
+13. Rule 93 added app-update behavior; Rule 94 added online/offline/reconnecting behavior; Rule 95 added notification permissions/fallbacks; Rule 96 added session/device security; Rule 97 added privacy/data access; Rule 98 added fraud monitoring; Rule 99 added support/complaints; Rule 100 opened a recommendation for a full requirements audit before further implementation.
+14. The user wants one question at a time and is still in requirements/planning mode. Do not make code changes or claim a feature is implemented unless explicitly authorized.
+
+====================================================================
+4. FOUNDATION RULES 1–43
+====================================================================
+
+RULE 1 — Product purpose and service area
+Build OTS Transport as a real intercity transport booking and operations platform, starting from Khuzdar, Balochistan, and expanding across Pakistan routes. The product should prioritize safety, transparency, reliable scheduling, and an understandable passenger journey.
+
+RULE 2 — Premium, usable experience
+The app should have a polished, premium interface with readable typography, clear contrast, coherent layouts, quality vehicle/route imagery, and a consistent OTS identity. Visual polish must not come at the expense of accessibility, reliability, or safety.
+
+RULE 3 — Android-first passenger/driver application
+The main public app is Android. Passenger and driver workflows coexist but remain distinct. The user should not be trapped in a mode accidentally and should have clear back/navigation controls in every relevant flow.
+
+RULE 4 — Separate operations application
+Operational staff and the three operational owners use a separate app from passengers/drivers. Its screens and permissions should be designed for operational tasks, not copied blindly from the public app.
+
+RULE 5 — Silent Owner is a separate private website
+Exactly one Silent Owner account uses a separate private website. It is not a fourth operational owner and is not a role users can select or discover. Its protected backend controls must remain inaccessible from the public/operations app.
+
+RULE 6 — Backend is the security authority
+Authorization, booking integrity, role checks, emergency freeze enforcement, and sensitive operations must be enforced server-side. Hiding a UI control is not sufficient security.
+
+RULE 7 — Role-based, least-privilege access
+Each user sees and performs only the actions needed for their role and explicit permissions. Access must be checked on every protected server operation, not just at sign-in.
+
+RULE 8 — Separate authentication journeys
+Passenger and driver sign-in/registration should be clearly separated where their requirements differ. Operations accounts use their own authorized workflow. Never offer the Silent Owner as a public login option.
+
+RULE 9 — Identity and phone verification
+Passenger and driver accounts require verified phone contact and required identity checks. The exact authentication provider and any SMS/OTP provider must be selected after checking availability, cost, reliability, and security.
+
+RULE 10 — Driver application and approval
+A driver must submit required identity and vehicle information and remain pending until an authorized owner or a manager with explicit approval permission approves the application. A driver cannot start operating merely because a form was submitted.
+
+RULE 11 — Required driver/vehicle documents
+The planned driver application includes CNIC front/back, selfie, vehicle registration/plate, vehicle photos, vehicle specifications, and proposed routes. Uploads must use protected storage and must not be publicly accessible by predictable URLs.
+
+RULE 12 — One driver, one car for now
+Each driver account is linked to one registered car in the current design. Do not build multiple-vehicle selection for a driver unless the user explicitly changes this rule later.
+
+RULE 13 — Correct standard car seat layout
+A standard car contains five total seats: one driver seat, one front passenger seat, and three rear passenger seats. Passenger booking excludes the driver's seat. Seat diagrams and capacity calculations must match the actual registered vehicle.
+
+RULE 14 — Vehicle-specific seat layouts
+Vans, Coasters, and buses require layouts and capacities appropriate to their vehicle type. The UI must not reuse a sedan layout for a different vehicle. Final seat maps should be verified per vehicle configuration.
+
+RULE 15 — Scheduled rides and route search
+Passengers search scheduled rides by origin, destination, date/time, intermediate stops, vehicle type, and available seats. Results should show the approved route, departure/arrival estimate, vehicle, driver verification status, available seats, and transparent fare components.
+
+RULE 16 — Route network and corridors
+Initial planned geography includes Khuzdar, Quetta, Karachi, Larkana, Noshki, Gwadar, Turbat, Chaman, Hub, Kalat, Surab, Bela and other approved destinations. Important corridors include N-25/RCD, M-8, N-70 and N-40 where applicable. Routes must be configured operationally, not assumed from a static marketing list.
+
+RULE 17 — Stops, pickup and drop-off
+A trip may have approved intermediate stops. Passengers may choose pickup and drop-off points along the approved route. The system must validate that pickup occurs before drop-off and that the selected segment is served by the trip.
+
+RULE 18 — Segment-based seat inventory
+A seat can be booked by different passengers for non-overlapping route segments of the same trip. A booking must block the seat only over its reserved segment, while preventing overlapping reservations and impossible timings.
+
+RULE 19 — Segment fares and transparent price
+Fares may differ by route segment, seat tier, vehicle, or approved service. Show the fare before confirmation and preserve a fare snapshot on the booking so later price changes do not silently alter a confirmed passenger's terms.
+
+RULE 20 — Front/rear seat tiers
+Where configured, front passenger and rear passenger seats can have different fares (as illustrated by the design reference). The fare difference must be shown clearly before the passenger selects/commits to a seat.
+
+RULE 21 — Atomic 10-minute seat hold
+During checkout, a selected seat/segment is held for 10 minutes. The hold must be atomic/server-controlled and automatically expire if not completed. Concurrent passengers must not both successfully reserve the same seat segment.
+
+RULE 22 — Charter booking
+A passenger may reserve the entire car for a selected route segment. Chartering blocks individual passenger bookings on the same overlapping segment. The app should show the total charter price and make the scope of the reservation clear.
+
+RULE 23 — Seat map clarity
+Seat maps must distinguish available, held, booked, unavailable, and selected seats with clear labels and accessible contrast. Never rely on color alone. The map must correspond to the actual vehicle and current validated inventory.
+
+RULE 24 — Female passenger preference safeguard
+The planned system may mark adjacent empty seats as “Female Preferred” when a solo female passenger is booked, and show a courteous prompt to a male passenger attempting an adjacent seat, except for passengers booked together in the same group transaction. Exact adjacency, privacy, and policy details require careful validation before implementation; do not expose passenger identity to explain the restriction.
+
+RULE 25 — Booking confirmation and digital ticket
+A booking is confirmed only after server validation of seat availability and the required booking/payment conditions. Provide a digital ticket with booking reference, route/segment, passenger/seat details, fare breakdown, QR code, and clear status.
+
+RULE 26 — QR ticket validation
+QR codes should identify a booking securely without embedding unnecessary private data. Scanning must validate the ticket server-side when online. Offline scanning may use securely issued data and must synchronize/resolve conflicts when connectivity returns.
+
+RULE 27 — Luggage allowance and heavy luggage
+One standard bag is included in the planned fare. Each extra heavy-cargo bag is planned at PKR 500, subject to an authorized/configurable policy. The fee must be visible before booking and applied consistently.
+
+RULE 28 — Luggage tags
+Each tagged bag receives a unique four-digit tag ID and QR/barcode on the ticket stub. Prevent duplicate active tags and do not expose passenger CNIC, phone, or other private information through the tag code.
+
+RULE 29 — Terminal and toll fee line items
+Show terminal tax/fees and toll fees as separate line items, distinct from the base driver fare. Fee allocation by segment/route must be explicitly configured; never hide them inside an unexplained total.
+
+RULE 30 — Payments are planned, not assumed complete
+Payment options may include JazzCash and Easypaisa using authorized account details, with secure transaction reconciliation. Payment integrations are later-phase work and may require provider approval or fees. Never display a payment as successful based only on a client-side button click.
+
+RULE 31 — Cancellation and refund policy
+Within the first 8 hours after booking confirmation, cancellation receives a 100% refund. After the first 8 hours, refund is 75% and 25% is retained. Exactly 8 hours falls in the latter category. The elapsed clock begins at booking confirmation, not departure time. Preserve transaction history and use adjustment transactions rather than silently editing financial records.
+
+RULE 32 — Passenger no-show
+Passengers should arrive at pickup at least 30 minutes before departure. If a passenger misses departure for reasons within their control, mark No-show and do not automatically refund. If the company caused the problem through delay or incorrect information, protect the passenger and review replacement/full refund options.
+
+RULE 33 — Driver cancellation and replacement
+When a driver cancels, require a reason and notify authorized operations to find a replacement driver/vehicle. Preserve passenger bookings where possible. If no suitable replacement exists, refund affected passengers 100%. The company—not passengers—covers additional replacement costs. Track repeat cancellations for human review; do not automatically punish genuine emergencies.
+
+RULE 34 — Delays and passenger communication
+Notify passengers promptly when a trip is delayed, include the reason and revised ETA as soon as known, and keep the status current. Do not fabricate an ETA when it is unknown.
+
+RULE 35 — Optional home pickup
+Home pickup may be offered for car bookings when the passenger chooses it; it is not automatically offered for every vehicle type. Configure the fee by route/service area and show it upfront. If a driver cannot reach the location, contact the passenger and operations; offer a safe alternative only with passenger agreement, without extra charge. If no reasonable alternative exists, give a full refund.
+
+RULE 36 — Changes to pickup/drop-off after booking
+Allow a passenger to request a pickup/drop-off change only if route, timing, and capacity permit. Recalculate the fare and obtain the passenger's approval for additional charges. If the new fare is lower, handle the difference through an authorized adjustment/refund policy. If the change is impossible, leave the original booking unchanged.
+
+RULE 37 — Multi-stop charter and waiting
+Whole-car charter may support multiple stops within the approved route/service area. Show itinerary, total price, and any planned waiting allowance/fee upfront. Do not add unapproved waiting fees during a journey; obtain approval before charging for additional waiting.
+
+RULE 38 — Contacting the assigned driver
+After confirmation, passengers can contact the assigned driver through an in-app call or privacy-preserving contact option where available. Avoid exposing personal phone numbers unnecessarily. If the driver is replaced, revoke the old contact access and update the passenger's assigned contact.
+
+RULE 39 — Family trip-sharing link
+Passengers can optionally share a secure trip-tracking link with family. It expires after the trip or the authorized period, exposes only necessary information, and never includes CNIC or private documents. Clearly indicate when GPS is unavailable or stale.
+
+RULE 40 — Passenger and driver SOS
+Provide a one-tap SOS during an active trip for both passengers and drivers. Share the latest GPS location, timestamp, trip/vehicle context, and alert to authorized operations. Show honest pending/delivered/failed status. SOS does not guarantee that public emergency services have been contacted.
+
+RULE 41 — SOS acknowledgement and escalation
+An authorized operational recipient should acknowledge SOS. If no acknowledgement arrives within 60 seconds, escalate to other authorized owners/managers. Keep the incident open until resolved, retry delivery where possible, and retain a protected incident history. Configure and verify local emergency telephone numbers before launch; a direct call option should work independently of OTS backend where cellular service is available.
+
+RULE 42 — Offline SOS and breakdown
+Make SOS accessible offline, queue and retry the alert when possible, show that it is not yet delivered, and include the latest GPS timestamp. If no working communication channel exists, immediate delivery cannot be guaranteed. Drivers also have a separate breakdown report with location, trip, and problem description; operations should arrange replacement and notify passengers without extra charges. If anyone is in danger, use SOS as well.
+
+RULE 43 — Ratings, appeals, and fair review
+After a completed trip, passengers may rate the driver and optionally provide feedback. Drivers may privately rate passengers and report no-show, abuse, or unsafe conduct. Ratings are tied to verified trips. A low rating alone must not automatically suspend an account. Serious complaints require human review; passengers and drivers can appeal. Preserve the original report, appeal, evidence, and recorded outcome; do not treat an allegation as automatic proof of guilt.
+
+====================================================================
+5. RULES 44–100 — SECURITY, OPERATIONS, AND SYSTEM BEHAVIOR
+====================================================================
+
+RULE 44 — GPS retention and review
+Keep detailed ordinary trip GPS history for 90 days. Retain SOS/breakdown GPS records for one year, then review their necessity. Hold investigation-related GPS for as long as genuinely needed with periodic review. Financial records follow applicable legal/accounting requirements. Avoid indefinite retention without a valid reason.
+
+RULE 45 — Silent Owner can inspect critical system data
+The Silent Owner may access active live GPS, trip-location history, identity documents, financial data, and other protected operational records needed for system administration, safety, and incident response. Access is private, strongly authenticated, and unavailable to operational users. The authority must not be exposed through operational UI or reports.
+
+RULE 46 — Silent Owner booking override
+The Silent Owner may cancel or modify any confirmed booking, adjust fare, initiate a refund, or release a seat when necessary. Never erase the original booking or financial history. Preserve the original state and record corrections as adjustment transactions with a private protected audit trail.
+
+RULE 47 — System-wide configuration
+The Silent Owner can configure system-wide rules including refunds, luggage fees, seat holds, routes/fares/taxes, verification, notifications, and security/permissions. Changes apply to future bookings by default. Existing confirmed bookings retain their confirmed price and terms unless a lawful, authorized correction is required and clearly recorded.
+
+RULE 48 — Restore recoverable records
+The Silent Owner may restore deleted or corrupted records where valid backups or other recovery mechanisms make this possible. Restore procedures must preserve financial integrity and avoid duplicate bookings/payments. Record recovery privately. If every backup is destroyed or corrupted, recovery cannot be guaranteed.
+
+RULE 49 — Emergency freeze authority
+The Silent Owner can activate a one-tap emergency freeze without confirmation. Backend enforcement starts immediately. Status must truthfully indicate pending, partially enforced, or fully enforced; never claim full enforcement before systems confirm it.
+
+RULE 50 — Emergency freeze behavior
+Emergency freeze blocks new bookings, trip publishing, and routine activity. Preserve existing tickets and journeys already in progress, and preserve SOS/essential safety functions wherever technically possible. Safety-critical operations should be resilient to ordinary booking restrictions.
+
+RULE 51 — Only Silent Owner lifts emergency freeze
+Only the Silent Owner can lift the Silent Owner's emergency freeze. An operational owner or manager cannot bypass it by lifting an ordinary freeze, toggling maintenance, changing permissions, or using a client-side workaround.
+
+RULE 52 — Ordinary operational freeze
+Operational owners can activate an ordinary operational freeze. A manager may also activate it after notifying all three operational owners; the manager does not need to wait for their replies before addressing an urgent operational risk. Notification failure must be recorded and retried, but must not block urgent freezing.
+
+RULE 53 — Ordinary unfreeze
+Any operational owner or manager may lift an ordinary operational freeze. This does not override or remove a Silent Owner emergency freeze. The backend must evaluate both freeze states independently and apply the stricter active state.
+
+RULE 54 — Maintenance mode belongs to operational owners
+Maintenance mode is controlled only from the three operational owners' accounts, not from the Silent Owner website. Any one operational owner may activate, schedule, change, end, or cancel maintenance independently. Managers/workers may submit a maintenance request or report an issue but cannot control the mode.
+
+RULE 55 — Selective maintenance and safety
+Maintenance can disable selected features rather than blindly disabling the entire service. Preserve SOS and essential safety functions wherever technically possible. Passenger/driver notices should describe affected features and an ETA if known, without disclosing internal security details.
+
+RULE 56 — Silent Owner system-health dashboard
+The private website should show backend/database/storage status, backup health, notification systems, app health, freeze states, and monitoring gaps. Health indicators must reflect observed state and clearly distinguish unknown/unavailable from healthy.
+
+RULE 57 — Private security alerts
+The Silent Owner receives private alerts for failed logins, suspicious privileged activity, unauthorized protected-access attempts, backup/export failures, and changes to security settings or recovery credentials. These alerts must not be exposed in operational notifications or logs.
+
+RULE 58 — Silent Owner website outage
+If the private website becomes unavailable, backend security and current freeze enforcement must continue. The outage must not unlock access or disable backend rules. Apps may continue authorized operations unless another security or freeze rule applies.
+
+RULE 59 — Fresh authentication for high-risk actions
+Require fresh authentication for high-risk actions such as permanent destruction, recovery-credential changes, lifting emergency freeze, and other dangerous operations. A long-lived session alone should not authorize destructive or recovery-sensitive actions.
+
+RULE 60 — Separate 24-character confirmation key
+For designated destructive actions, use a separate 24-character confirmation key in addition to normal authentication. Store/verify it securely; never reveal it in logs, UI diagnostics, or ordinary operational records. Do not confuse it with a password or ordinary OTP.
+
+RULE 61 — Safe database deletion flow
+Database deletion should begin with one-tap initiation, then show a warning and preview of what will be deleted, related backup copies, and recoverability. The user then enters the 24-character key; the backend verifies the authorization and key before deletion begins. The preview must identify scope clearly enough to prevent accidental destruction.
+
+RULE 62 — Panic lock is separate
+A panic lock remains a separate immediate action from destructive deletion. Do not add the deletion preview/key flow to the panic lock if that would delay emergency protection.
+
+RULE 63 — Secure initial recovery setup
+Configure a secure Silent Owner recovery method during initial setup. Do not provide an ordinary public “Forgot password?” flow for the Silent Owner. Recovery must never give operational owners access to the Silent Owner account.
+
+RULE 64 — Operational invisibility, private auditability
+The Silent Owner's identity, login, recovery, administrative actions, and controls must be invisible to operational users and omitted from operational audit/reporting. However, protected private security records may exist for the Silent Owner and must be accessible only through the private website or authorized recovery mechanism. Invisibility to business operators does not mean no security record exists.
+
+RULE 65 — Encrypted disaster-recovery backups
+The Silent Owner can export complete encrypted backups covering the database and essential stored files. Use a separate encryption key, integrity verification, and protected access. Backups must be usable for disaster recovery rather than being an unverified archive.
+
+RULE 66 — Backup retention schedule
+Retain daily backups for 30 days, weekly backups for 12 weeks, and monthly backups for 12 months. Retain critical financial/security records according to applicable legal requirements. Backups must be encrypted, access-controlled, and separated from the live database. Retention policy must be technically enforced and monitored.
+
+RULE 67 — Permanent destruction must include backup scope
+Before permanent destruction, separately identify whether live data, snapshots, exports, and backup copies are included. Warn that destroying all valid copies can make recovery impossible. Preserve legally required records where applicable and require the designated high-risk authentication/key flow.
+
+RULE 68 — Financial integrity during restore or correction
+Never rewrite financial history to make a correction look as if it always existed. Use adjustment/reversal transactions, link them to the original transaction, and preserve who authorized the correction and when. Restores must avoid duplicate charges, refunds, or bookings.
+
+RULE 69 — Live GPS and identity access restrictions
+Live GPS, trip history, CNIC/identity documents, financial records, and SOS details are sensitive. Access is limited to roles and operational purposes that require it, with stronger safeguards than ordinary profile data. The Silent Owner has the specified system authority, but that authority is private and protected.
+
+RULE 70 — Silent Owner can change protected system rules
+The Silent Owner can change system-wide configuration and permissions. Changes must be backend-enforced, validated, and applied predictably. Existing confirmed prices and terms are not silently altered; use the established booking snapshot and adjustment rules.
+
+RULE 71 — Operational owners' authority
+The three operational owners have broad operational authority over drivers/documents, routes/stops/schedules/fares, bookings, cancellations/refunds, finances, workers, and operational responses. Any one owner can make ordinary business decisions unless a stricter rule applies. All three can see each other's operational audit history, but cannot access the Silent Owner's private controls or audit records.
+
+RULE 72 — Unanimous operational-owner replacement
+Creating or replacing an operational owner requires each of the three existing operational owners' individual OTP approvals. There is no two-of-three bypass. If one is unavailable, the request remains blocked. The Silent Owner may independently add, remove, freeze, or replace operational owners.
+
+RULE 73 — Owner OTP security
+Each approval OTP must be short-lived, single-use, and bound to the exact owner-creation/replacement request. Do not accept a code from another request or reuse it after completion. Record the operational approval outcome without exposing Silent Owner identity.
+
+RULE 74 — Owner self-service password recovery
+An operational owner may recover their own account through SMS OTP to their verified phone. This does not permit recovery of another owner's account or Silent Owner access. Changing a phone number requires current authentication and OTP to the new number. Losing both the account and old phone requires a separate recovery process.
+
+RULE 75 — Worker account management
+Operational owners can create, change, suspend, and remove workers. A manager may do so only if an owner explicitly grants worker-management permission. Each worker gets an individual account, assigned role, and terminal/work assignment; shared logins are not allowed.
+
+RULE 76 — Worker suspension and reactivation
+Suspending a worker revokes access and active sessions where possible while preserving their work history. An owner or properly authorized manager may reactivate the worker. Keep an audit trail of who changed the account status and why.
+
+RULE 77 — Manager role and assigned permissions
+Managers are a planned operational role with individually assigned powers such as refunds, driver approval/rejection, major route/fare changes, route/stop/schedule management, staff/terminal supervision, and breakdown/reassignment work. Do not assume every manager automatically receives every permission.
+
+RULE 78 — Manager privilege boundaries
+Managers cannot change each other's permissions, appoint/remove/promote managers, or grant themselves privileges. Only operational owners can create, remove, suspend, or change manager permissions. Managers can see each other's operational work/actions as allowed by the operations design.
+
+RULE 79 — Reversal of manager decisions
+Manager B may reverse Manager A's decision only if Manager B has permission for that action. Preserve the original decision and record the reversal and reason. Financial corrections must use compensating transactions rather than silently overwriting history.
+
+RULE 80 — Manager suspension and worker limits
+Any operational owner can suspend/reactivate a manager. Managers cannot manage other manager accounts. Worker management is allowed only when an owner has explicitly granted that permission. No operational role may access Silent Owner controls.
+
+RULE 81 — Worker permissions
+Workers may sell walk-in cash tickets, search bookings by CNIC/phone/ticket ID when necessary for the task, print/attach luggage tags, scan tickets, support boarding/luggage handover, and print/export authorized checkpoint manifests. They cannot approve/reject drivers, change/approve fares, issue refunds, manage owner accounts, freeze/unfreeze apps, or access Silent Owner controls.
+
+RULE 82 — Worker-visible data boundaries
+Workers see the information required for their current task and operational instructions, not complete financial data or manager audit histories. Search by sensitive identifiers must be restricted, justified, and logged appropriately. Do not expose unnecessary CNIC details on manifests or tickets.
+
+RULE 83 — Offline counter ticketing
+Workers may prepare cash-ticket sales offline, but tickets remain pending and unconfirmed until the server validates availability after reconnection. Use a secure pending queue, idempotency, duplicate prevention, and a conflict flag for staff resolution. Reconcile collected cash with validated sales.
+
+RULE 84 — Account restoration authority
+A worker may be restored by an owner or authorized manager; a manager may be restored only by an operational owner; an operational owner blocked by the Silent Owner can be restored only by the Silent Owner. Passenger/driver restoration follows owner/manager permissions unless a Silent Owner restriction applies. Only the Silent Owner lifts its own emergency freeze.
+
+RULE 85 — Driver approval and one-car registration
+Driver onboarding requires the defined identity/vehicle documents and routes. The application stays pending until an owner or manager with explicit permission approves it. One driver is registered to one car for now. No unapproved driver can publish or operate trips.
+
+RULE 86 — Trip and seat operations
+Drivers can publish approved trips, manage available seats, view the passenger manifest, and manage the active journey within authorized limits. The seat map follows the actual vehicle layout and segment inventory rules. A trip/seat action cannot bypass server validation or freeze/security rules.
+
+RULE 87 — Driver availability states
+Drivers can set Available (searchable) or On Leave/Paused (hidden) as permitted. Busy/On Route is automatically active for a current journey where possible, with route duration and status based on the trip. Driver status must not imply availability for a trip they cannot serve.
+
+RULE 88 — Driver breakdown and passenger reassignment
+A driver can report a breakdown with trip, location, and problem details. Authorized managers receive the alert and can arrange a suitable replacement, validate capacity/route, preserve bookings/payments, update seats/luggage tags, and notify passengers. No extra charge is passed to passengers. If no suitable replacement exists, contact passengers for resolution/refund.
+
+RULE 89 — Passenger/driver ratings and complaints
+Ratings are allowed only after completed, verified trips. Passenger feedback is optional. Driver ratings of passengers remain private. Low ratings alone do not trigger automatic suspension; serious allegations need fair human review. Both sides can appeal, and original records/outcomes remain preserved.
+
+RULE 90 — SOS incident lifecycle
+SOS is not a routine notification. It must have delivery state, retries where possible, authorized acknowledgement, escalation to other authorized owners/managers after 60 seconds without acknowledgement, and a resolution lifecycle. Direct emergency calling should be independently available where cellular service permits. Never promise successful delivery if the device has no working communications.
+
+RULE 91 — English and Urdu language support
+Support English and Urdu across both apps and the Silent Owner website where appropriate. Urdu must use correct right-to-left layout and shaping. Important notices, tickets, and SOS information should be bilingual. Keep the structure extensible for future languages without requiring a redesign.
+
+RULE 92 — First-launch language selection
+On the first launch of either app, show a simple choice between English and Urdu (اردو). Save the choice and remember it on later launches. Do not ask again unless the user changes language in Settings. Changing language must not erase data. Apply the selected language throughout the user's experience where appropriate, including correct Urdu RTL layout.
+
+RULE 93 — App updates and security
+Optional updates show a notice but allow continued use. Require a mandatory update when necessary for a critical security fix or essential compatibility. Explain why the update is required. Preserve bookings, tickets, account information, and other user data. Keep SOS and essential safety functions available wherever technically possible during update restrictions. If an old version is unsafe/incompatible, restrict affected features rather than falsely claiming it is secure.
+
+RULE 94 — Internet connection problems and offline operation
+Clearly show Online, Offline, or Reconnecting. Cache only information needed for approved offline tasks, protect it, and remove it when no longer needed. Securely queue supported actions and synchronize when connection returns. Never confirm a booking offline without server validation. Prevent duplicate bookings/tickets/payments/alerts after reconnection and flag conflicts for authorized resolution. SOS should show delivered, pending, or failed honestly and retry where possible.
+
+RULE 95 — Notifications and notification permissions
+Keep important updates available in-app, with push notifications for timely events and SMS/WhatsApp fallbacks where configured, available, and permitted. Prioritize booking confirmations, driver/vehicle changes, delays, cancellations, breakdowns, and SOS. Track sent/delivered where supported/failed/retrying states without falsely claiming delivery. If permission is denied, explain how to enable it and provide another way to check updates. Hide sensitive details from lock screens where appropriate. SOS follows its own acknowledgement/escalation rules and must not depend only on ordinary notification preferences.
+
+RULE 96 — Account and device security
+Users can review active sessions and registered devices and revoke a lost/stolen device's sessions from another authorized device or secure recovery process. Use the approved authentication method and verified phone where required. Sensitive account changes require fresh authentication. Password changes, suspension, and security incidents revoke affected sessions wherever technically possible. Never expose authentication secrets or sensitive session data to other users. Keep appropriate security events in protected logs without exposing Silent Owner identity/actions to operational users.
+
+RULE 97 — Privacy and personal-data access
+Collect only personal data needed for safe, lawful operations. Apply least-privilege access and allow users to request access to/correction of their own profile data subject to law. CNIC documents, live GPS, financial details, and SOS records require stricter controls. Follow defined GPS retention and legal requirements. Honor valid deletion requests while retaining records required for law, accounting, active disputes, or safety investigations. Silent Owner identity, controls, and private security records remain inaccessible to operational users. Record authorized sensitive-data access in the appropriate protected audit trail.
+
+RULE 98 — Fraud detection and suspicious activity
+Monitor repeated failed logins, unusual booking patterns, duplicate payment attempts, duplicate tickets, and suspicious account creation. Apply proportionate protections such as rate limits, temporary restrictions, or additional verification. Unusual activity alone is not proof of fraud and should not cause unjustified permanent bans. Escalate serious incidents to authorized operational personnel or Silent Owner private security alerts according to incident type. Preserve evidence securely and provide an appropriate review/appeal path for affected users.
+
+RULE 99 — Customer support and complaints
+Provide passengers and drivers an in-app support section for booking problems, payment disputes, misconduct, lost luggage, and general complaints. Give every case a unique reference number, status, assigned authorized reviewer, and recorded resolution. Safety complaints receive urgent priority and escalation. Users can follow up on their own cases without seeing another person's confidential data. Preserve relevant evidence and allow review where appropriate. Never expose Silent Owner private records.
+
+RULE 100 — Full requirements audit before implementation
+Before implementation proceeds, review the consolidated specification for contradictions, missing decisions, security gaps, technical limitations, operational edge cases, accessibility, privacy, legal requirements, and costs that may exceed the PKR 0 starting budget. Clearly distinguish confirmed requirements, provisional design choices, unresolved decisions, and features that require paid providers. The user asked for one question at a time. This is a planning checkpoint, not authorization to start coding or change other resources.
+
+====================================================================
+6. OPERATIONS, SAFETY, AND BUSINESS DETAILS
+====================================================================
+
+- Driver status and trip publishing must be limited to approved drivers and vehicles.
+- Seat inventory is segment-based and server-validated; overlapping bookings/charters cannot conflict.
+- Ten-minute holds must expire automatically and must not reserve seats forever.
+- Driver manifests and checkpoint exports must expose only necessary passenger details.
+- QR tickets and luggage tags must not reveal sensitive information.
+- Notifications should be scheduled 2 hours 30 minutes before departure where the planned service applies, including driver photo, call/contact option, plate, terminal pin, and QR ticket. Delivery/failure/retry must be tracked. SMS/WhatsApp provider support and cost must be verified.
+- Drivers may request fare changes, but fares require authorized approval. Workers cannot change/approve fares.
+- Drivers may manage multiple routes/trips over time but have one registered car under the current rule.
+- Breakdown response should preserve passenger bookings and payments, seek replacement, and avoid extra charges to passengers.
+- Trip delays must include reason and updated ETA when known.
+- Passenger and driver location sharing must be limited to the necessary trip window and authorized recipients.
+- Emergency contacts must be verified for the operating area before launch. SOS alert delivery does not guarantee contact with public emergency services.
+- Refunds/cancellations and all financial changes require a consistent transaction ledger, idempotency, and auditability.
+- App and backend freeze/maintenance states must be shown truthfully and enforced server-side.
+- Backups must be tested with restoration drills; a backup file alone is not proof of recoverability.
+- All external provider limits, SMS/WhatsApp fees, map costs, payment gateway requirements, and app-distribution requirements must be checked before launch.
+
+====================================================================
+7. ROLES AT A GLANCE
+====================================================================
+
+SILENT OWNER (exactly one; private website only):
+- Absolute system authority, emergency freeze, protected backend/security controls, system health, backups/restoration, private alerts, sensitive-data access, global configuration, protected booking override.
+- Not discoverable by any operational role. Only Silent Owner lifts its emergency freeze.
+
+THREE OPERATIONAL OWNERS:
+- Actual business owners with broad day-to-day operational authority.
+- Can see one another's operational audit history.
+- Manage drivers, routes, trips, fares, bookings, refunds, workers, and maintenance mode.
+- Any one can activate/change/end/cancel maintenance.
+- Cannot access Silent Owner identity, private site, or private audit.
+
+MANAGERS:
+- Future operational role with explicitly assigned permissions.
+- Can perform authorized operational tasks, including selected approvals/refunds/route changes/breakdown coordination.
+- Cannot create/remove/promote managers or change each other's permissions.
+- Cannot control maintenance mode or access Silent Owner controls.
+- May activate ordinary freeze only under the notification rule; may lift ordinary freeze.
+
+WORKERS:
+- Individual logins and role/terminal assignments.
+- Ticket sales, booking lookup for assigned tasks, QR scanning, luggage tags, boarding/luggage support, authorized manifests.
+- No driver approval, fare approval, refunds, owner/manager account control, freeze control, maintenance control, or Silent Owner access.
+
+PASSENGERS:
+- Search trips, choose approved pickup/drop-off, select seats, book individual seats or a full-car charter, manage permitted booking changes, receive ticket, share trip link, contact assigned driver, use SOS, rate/review and submit complaints.
+
+DRIVERS:
+- Submit verification documents, wait for approval, manage approved trips/seats, view manifest, scan/validate ticket where authorized, manage journey status, report breakdown/SOS, and receive passenger communications. One registered car per driver account for now.
+
+====================================================================
+8. SECURITY PRINCIPLES THAT MUST NOT BE LOST
+====================================================================
+
+1. Backend enforcement beats UI hiding.
+2. Silent Owner stays private and undiscoverable to operational users.
+3. Operational owner authority and Silent Owner authority are different.
+4. Maintenance mode is controlled only by operational owners.
+5. Ordinary freeze and emergency freeze are separate states.
+6. Only Silent Owner can lift its emergency freeze.
+7. Existing trips and SOS should remain protected during freeze/maintenance wherever technically possible.
+8. Never confirm bookings or payments without server-side validation.
+9. Never erase financial history to correct it.
+10. Preserve original decisions and record reversals.
+11. Protect CNIC, GPS, financial, and SOS data with strict access controls.
+12. Use unique user accounts, no shared worker credentials.
+13. Use fresh authentication and additional confirmation for dangerous actions.
+14. Backups must be encrypted, separated from production, integrity-checked, and restoration-tested.
+15. Clearly show pending/failed/unknown states rather than pretending an operation succeeded.
+16. Never guarantee SOS delivery when no communication channel exists.
+17. User data must survive ordinary app updates.
+18. No feature should be called completed until it has been implemented and tested.
+
+====================================================================
+9. VISUAL REFERENCE ALREADY IN THE REPOSITORY
+====================================================================
+
+The existing file “My idea in images.txt” describes six reference screens:
+1. Splash/security and phone OTP login with road/mountain-pin blue-and-gold identity.
+2. Passenger dashboard with route cards for Karachi, Quetta, Sindh, and Makran.
+3. Driver/vehicle verification with photo, protected CNIC, vehicle images/plate, and Pending Approval.
+4. Ride results showing driver/vehicle, departure/arrival, seat availability, and front/rear tiered fares.
+5. Interactive vehicle seat map with available/booked/selected seats, luggage options, and temporary hold timer.
+6. Digital QR ticket, booking reference, seat/fare details, live trip tracking, share-location, and SOS.
+
+These are design references, not proof that the current app already matches or implements them.
+
+====================================================================
+10. OPEN ITEMS TO VERIFY DURING THE FULL AUDIT
+====================================================================
+
+- Exact original text/order of historical Rules 1–43 should be compared with prior conversation if recovered; this document labels them as consolidated foundational rules.
+- Final authentication method and free/paid SMS OTP provider.
+- Exact payment provider integration, settlement/reconciliation, refunds, and whether payments are included in first launch.
+- Legal requirements for CNIC storage, privacy, financial retention, transport licensing, and operating across jurisdictions.
+- Verified emergency numbers and escalation contact tree.
+- Exact vehicle-specific seat layouts and approved seat capacities.
+- Final fare rules and allocation of terminal/toll fees across segments.
+- Female-seat preference policy, privacy and fairness review.
+- Home pickup service area and fee rules.
+- WhatsApp/SMS template approval, consent, delivery limitations, and provider cost.
+- Maps/GPS provider, offline mapping limitations, battery/data usage, and cost.
+- App signing, secure release process, Play Store or other distribution requirements, and whether any fee is unavoidable.
+- Silent Owner recovery procedure and safe key storage.
+- Backup provider, encryption-key custody, retention automation, and restoration drills.
+- Data deletion, export, appeals, complaint SLAs, and applicable legal compliance.
+- Test strategy for concurrency, duplicate requests, offline ticket sales, SOS delivery, freeze states, access control, and disaster recovery.
+- Confirm that all 100 requirements are internally consistent before implementation.
+
+====================================================================
+11. CURRENT CHECKPOINT
+====================================================================
+
+The user has confirmed Rules 91–99 and agreed to Rule 100 as the proposed next step: perform a full requirements audit before further rules or implementation. This file is the consolidated planning document. It does not authorize code changes or claim that the app, website, backend, payments, GPS, SOS, notifications, or backups are already implemented.
+
+End of document.
