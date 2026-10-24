@@ -733,3 +733,330 @@ The user has asked to pause the one-question-at-a-time requirements discussion a
 - Before every OTS Transport work session, implementation step, or proposed change, retrieve and review the complete current master requirements file, including the system architecture, all conversation rules, foundational Rules 1–43, Rules 44–100, operations and safety details, roles, security principles, open items, and every confirmed follow-up decision and pending discussion item. Do not rely only on memory, excerpts, or the latest appended rules. Resolve conflicts in favor of the latest explicit user decision, record unresolved matters as pending, and do not claim implementation without actual verification.
 - Do not modify code or app resources without explicit user authorization. Respect the user's repository restrictions; do not use unrelated repositories.
 
+
+
+====================================================================
+13. MASTER UPDATE — PLANNED FEATURES, COMPLETED DECISIONS, UI BLUEPRINT IDEAS
+Updated: 25 October 2026
+====================================================================
+
+PURPOSE AND STATUS LABELS
+
+This section brings the latest project checkpoint and newly collected interface ideas into the master specification. It records planning decisions and requirements, not verified software delivery. In this document:
+- CONFIRMED / PLANNED means the user has selected the behavior or it is part of the agreed product concept; it does not mean code exists.
+- IMPLEMENTATION VERIFIED means a feature has been built and tested against explicit acceptance criteria. No new implementation is declared verified by this documentation update.
+- OPEN / DEFERRED means the behavior still needs a decision or a real-world/provider/legal check.
+- FUTURE IDEA means it is worth considering but must not be treated as approved scope without the user's decision.
+
+This master file remains the source of truth for future OTS Transport planning. Do not change code, create pull requests, deploy, purchase services, or claim completion merely because an item is documented here.
+
+13.1 — PROJECTS AND REPOSITORY BOUNDARIES
+
+A. Passenger + Driver Android app
+- Designated repository: https://github.com/itsJsalam/Ots-transport
+- One Android application with passenger and driver modes, separate appropriate sign-in/sign-up flows, role-aware navigation, and clear back navigation throughout.
+- It must be an installable Android APK. A web page alone is not a substitute for the Android application.
+- Use the current master requirements before every implementation session. Do not edit code without the user's explicit authorization.
+
+B. OTS Work operations/staff Android app
+- A separate app for the three operational owners, managers with assigned permissions, and workers.
+- Planned repository name: “OTS Work”.
+- The exact repository URL has not yet been supplied. Do not guess the URL or create/edit a similarly named repository.
+
+C. Silent One private website
+- A separate, private website for the single Silent Owner only.
+- Planned repository name: “Silent One”.
+- The exact repository URL has not yet been supplied. Do not guess the URL or create/edit a similarly named repository.
+- Do not expose this private website or Silent Owner identity through either Android app.
+
+D. Master requirements repository
+- Repository: https://github.com/itsJsalam/For-chatgpt-images-viewing
+- This file is the canonical planning and rules record.
+- Documentation edits to this master file do not mean the Android app, operations app, backend, or private website has been implemented.
+
+13.2 — CONFIRMED PRODUCT DECISIONS TO PRESERVE
+
+- The initial service focus is scheduled intercity transport from Khuzdar, Balochistan, with routes across Pakistan.
+- Product quality should feel premium, polished, trustworthy, and complete rather than a rough demo.
+- The user's preference is PKR 0 and free-first tooling. Use legitimate free tiers/allowances; do not buy credits or subscribe without explicit approval. Identify unavoidable costs before committing.
+- The passenger and driver experiences live in one Android app; operations/staff use a separate app; the Silent Owner uses a separate private website.
+- A driver is registered to one car only in the current design. Do not add multi-car driver accounts unless the user explicitly changes this rule.
+- A standard car has five seats total: one driver seat, one front passenger seat, and three rear passenger seats. The driver seat is not bookable by passengers.
+- Hi-roof vans, Coasters, and buses use their actual registered vehicle-specific seat layouts and approved capacity.
+- A driver must remain pending until an authorized operational owner or explicitly permitted manager reviews and approves the required identity, licence, and vehicle documentation. Uploading documents alone is not approval.
+- First-launch language selection is English or Urdu, shown once and remembered; language can be changed in Settings. Urdu needs correct right-to-left layout.
+- The user wants a complete-feeling first release while costly payment, maps/GPS, SMS, or other services can be integrated later where necessary. The interface must not falsely claim unavailable integrations are active.
+- Every flow needs usable back navigation, loading/empty/error/offline states, readable contrast, and clear feedback. Keep text fields readable and placeholders distinguishable.
+- The user is a beginner and uses Android; when implementation instructions are requested, provide simple step-by-step guidance.
+- The user requires a full master-file review before work and explicit authorization before code changes.
+
+13.3 — APP 1: PASSENGER JOURNEY — REQUIRED SCREEN AND STATE COVERAGE
+
+The design should cover the complete journey, not only attractive static screens:
+
+1. First launch and language
+   - English/Urdu choice; remember the selection.
+   - Clear route into passenger mode or driver mode.
+   - Do not repeat the first-launch prompt unless the user resets app data or explicitly changes the language in Settings.
+
+2. Passenger account
+   - Passenger sign-up, sign-in, sign-out, session expiry, forgotten/recovered account flow, and appropriate validation/error states.
+   - Passenger and driver authentication must not be confused or merged into an unclear single form.
+   - Google sign-in and phone/SMS OTP are ideas/requirements subject to provider configuration, cost, and verification. Never show a button as working until tested.
+
+3. Search and discovery
+   - Origin, destination, travel date, passenger count, and available scheduled trips.
+   - Search/filter and sorting for useful vehicle, departure, arrival, fare, seat availability, and route/stop details.
+   - Vehicle choices may include car/sedan, hi-roof van, Coaster, and bus when those services are actually configured.
+   - Show the real seat layout and capacity of the chosen registered vehicle, not a generic layout that can overbook it.
+   - Support approved intermediate stops and segment-based seat availability. A seat may be sold on separate non-overlapping segments only after backend validation.
+
+4. Fare transparency
+   - Show fare and applicable terminal/toll fees as separate line items before confirmation.
+   - Save the confirmed fare snapshot. Later fare changes must not silently alter an existing confirmed booking.
+   - Display luggage allowance and any additional luggage charge before confirmation.
+   - Do not imply that a payment has been received until the trusted server/provider confirms it.
+
+5. Seat selection and checkout
+   - Select available seats from the vehicle's actual layout.
+   - A temporary seat hold may last 10 minutes. The backend must atomically create/expire/release holds and prevent conflicting bookings.
+   - Show remaining hold time and allow payment retry while the hold remains active; retries must not silently extend the hold.
+   - Handle delayed callbacks, duplicate submissions, connectivity loss, uncertain payment status, and expired holds without duplicate bookings or false confirmation.
+   - If payment is captured after a hold expires and the seat cannot be honoured, flag a safe refund/reconciliation workflow.
+   - For cash/counter sales, the sale remains pending until cash is actually collected, recorded, and server-side seat/segment availability is validated.
+
+6. Booking confirmation and ticket
+   - Give each confirmed booking a unique QR ticket linked to its booking.
+   - The QR must not expose CNIC or other unnecessary personal information.
+   - Online validation checks current server status. Offline validation uses securely synced, unexpired manifest/ticket data and is marked pending reconciliation.
+   - Prevent duplicate boarding; record scans and reconcile offline scans when online.
+   - A ticket must be recoverable after the passenger changes or loses a phone by securely signing in on the new device.
+   - Provide “Log out all other devices” with appropriate re-authentication, session revocation where supported, and a security notification where possible.
+
+7. Booking management
+   - View upcoming and past bookings, tickets, trip details, and booking status.
+   - Passenger cancellation uses the confirmed refund rules and shows the expected refund clearly.
+   - Pickup/drop-off changes require route, timing, seat, and fare revalidation. Higher fares need passenger approval; lower fares need authorized adjustment/refund; failed changes leave the original booking intact.
+   - Identity corrections before departure require authorized review; retain original and corrected values and an audit record.
+   - Driver cancellation: notify the passenger; attempt a suitable replacement at no extra passenger cost; allow the passenger to choose an immediate 100% refund instead of waiting; if no suitable replacement exists, refund 100%.
+
+8. Luggage
+   - Included allowance: cars include one standard bag; hi-roof vans, Coasters, and buses include three luggage items.
+   - Additional heavy luggage costs PKR 500 per additional bag, subject to the vehicle's rules and capacity.
+   - Each checked bag has a unique four-digit tag ID and QR/barcode linked to the ticket, without exposing private passenger data.
+   - Include tag printing/attachment, luggage handover, and status tracking in the relevant operational flow.
+
+9. Safety and help
+   - SOS access should remain easy to find during an active journey.
+   - Keep emergency trip information and tickets available during an ordinary freeze and, where technically possible, during connectivity loss.
+   - Optional emergency contact and time-limited trip sharing must be consent-based, show exactly what will be shared, and avoid CNIC exposure.
+   - Do not claim a contact, support agent, or emergency service was reached unless delivery/connection is confirmed.
+   - Verify emergency numbers and escalation contacts before launch.
+
+10. Passenger privacy and security
+   - Mask CNIC and sensitive identity fields in routine screens.
+   - Do not expose identity documents in QR codes, routine notifications, or ordinary logs/manifests.
+   - Permit document access only to specifically authorized roles for legitimate duties, enforced by the backend.
+   - Provide clear session/device security, suspicious-activity restrictions, recovery and review paths.
+   - Preserve bookings and tickets when a session/device is revoked or an account is temporarily restricted.
+
+13.4 — APP 1: DRIVER JOURNEY — REQUIRED SCREEN AND STATE COVERAGE
+
+- Separate driver sign-up/sign-in and a clear driver mode entry.
+- Driver onboarding/application with CNIC front/back, selfie, valid driving licence, required vehicle registration documents, and vehicle photographs.
+- Show Pending Verification, Approved, Rejected/More Information Required, Suspended, and Expired Document states with appropriate next steps.
+- Do not allow trip publishing or accepting new bookings until backend-verified approval is complete.
+- One driver account maps to one registered car in the current scope.
+- Allow correction/update requests for car information, but changes to identity, vehicle ownership, registration or safety-critical details must be reviewed when required.
+- Driver trip creation includes origin, destination, intermediate stops, date/time, vehicle/approved seats, fare, terminal/toll rules, luggage/capacity, and segment availability.
+- Prevent publishing a trip if required documents have expired or the driver is suspended/restricted.
+- Track licence/vehicle-document expiry and send reminders one month, two weeks, one week, three days, and one day before expiry.
+- Uploading renewed documents does not restore eligibility automatically; authorized verification is required.
+- Show driver's scheduled trips, passenger bookings/manifest as permitted, seat availability, ticket/boarding state, trip status, earnings records, cancellation/replacement workflow, and support.
+- Serious safety complaint may cause a proportionate temporary suspension by an authorized owner/manager; provide notice, investigation, response/appeal, protected audit history, and safe handling of existing confirmed trips.
+- Suspicious driver account activity can temporarily restrict new trips/bookings until verification. Provide a safe recovery/review path.
+- Every driver flow must include back navigation, input validation, loading, no-data, connectivity, permission-denied, and recoverable error states.
+
+13.5 — APP 2: OTS WORK OPERATIONS AND STAFF — REQUIRED WORKFLOWS
+
+Roles:
+- Three operational owners with broad business authority and visibility into one another's operational actions.
+- Managers with explicitly assigned permissions; one operational owner can appoint a manager and adjust their permissions.
+- Workers with limited permissions tied to assigned duties.
+- No operational role may discover or control the Silent Owner account or private website.
+
+Worker tasks:
+- Search booking by ticket ID, phone, or CNIC only where the worker's assigned task requires it and policy permits.
+- Sell counter/walk-in tickets and record cash; offline sales remain pending until server validation.
+- Print/attach luggage tags, scan QR tickets, support boarding/luggage handover, and print/export only authorized manifests.
+- Submit cancellation requests but do not finalize cancellations or refunds without delegated authority.
+- No driver approvals, fare approvals, refunds, freeze/unfreeze, owner management, or Silent Owner access by default.
+
+Manager tasks (permission-gated):
+- May review/approve drivers, eligible refunds, routes/stops/schedules/fare changes, worker/terminal supervision, sales/bookings, trip coordination, breakdown response, and passenger reassignment only when explicitly granted the relevant permission.
+- Cannot create/replace operational owners unless a separate approved rule expressly permits it; cannot access the Silent Owner or lift a Silent Owner emergency freeze.
+
+Operational owner tasks:
+- Driver/document approval and rejection, route/stop/schedule/fare operations, bookings/cancellations/refunds, staff and manager permissions, terminals, complaints, breakdowns, passenger safety and routine operations.
+- Any one operational owner can authorize routine business actions unless a specific higher-approval rule applies.
+- All three owners can review one another's operational audit records.
+- Owner creation/replacement requires all three existing owners' individual request-bound OTP approvals. No two-of-three shortcut. If one owner is unavailable, the request stays blocked. Silent Owner can independently override owner administration.
+- Any operational owner can activate or lift an ordinary operational freeze. Only Silent Owner can lift its own emergency freeze.
+- Ordinary operational freeze blocks new bookings and trip publishing but preserves essential active-trip ticket/details and SOS paths where possible.
+
+Operations states and edge cases:
+- Booking statuses must distinguish pending, confirmed, cancellation requested, cancelled, refund pending/processed, no-show, replacement offered/accepted, and reconciliation required.
+- Trip statuses should distinguish scheduled, boarding, departed, delayed, completed, cancelled, breakdown/assistance, and other explicitly configured states.
+- Include complaint intake, urgency/severity, assignment, evidence access restrictions, investigation, decision, appeal, and closure.
+- Include breakdown response, passenger communication, replacement vehicle/driver coordination, and expense/reconciliation records.
+- Include driver document expiry queue and suspended/restricted account queue.
+- Include cash reconciliation for accepted, cancelled, rejected, and pending counter sales.
+- Include audit trails for high-impact actions, reasons, actor, timestamp, old/new values where applicable, and approval evidence.
+- Use least privilege. A UI element being hidden is not a substitute for backend permission enforcement.
+
+13.6 — SILENT ONE PRIVATE WEBSITE — REQUIRED CONTROL AREAS
+
+The Silent Owner website is a separate, single-owner private control plane. Its authority and secrecy must be enforced server-side.
+
+Potential dashboard areas:
+- System health: backend/service status, database/storage health, error rates, queued jobs, connectivity, and last successful backup/restore drill.
+- Alerts: authentication anomalies, suspicious account behavior, failed background tasks, storage problems, backup failures, document-access anomalies, and emergency events.
+- Emergency freeze: one clear high-risk action with confirmation, status of both apps, reason/time/actor record, and explicit lift action available only to Silent Owner.
+- Protected role/account controls: emergency restriction and recovery for operational owners/managers/workers, with an audit trail.
+- Security and privacy settings: session policy, access controls, storage rules, rate limits, and review of high-risk access events.
+- Backup and restore: encrypted backups, retention status, integrity checks, restore drills, and documented key custody.
+- System-wide configuration: only settings that truly belong to the Silent Owner rather than routine operational maintenance.
+- Protected people directory: searchable, city-wise A–Z directory of passengers and drivers, with filters and pagination. Search by appropriate fields such as name, phone or approved identity lookup, with sensitive fields masked by default.
+- Secure document viewer: authorized view of driver selfie, CNIC front/back, licence/expiry, vehicle registration documents and car photographs; passenger identity/booking details only where needed for an approved legitimate purpose. Use protected access, short-lived access links where applicable, least privilege, audit logging, and no public URLs.
+- Protected audit trail: sensitive access, permission changes, emergency freeze/lift, owner administration override, backup/restore, and destructive actions.
+- Data retention/export/deletion controls that clearly distinguish live database records, uploaded files, and backup copies.
+
+Silent Owner controls and safety:
+- Unique username and strong password plus authenticator code or passkey.
+- Destructive action requires a separate 24-character confirmation key, secure backend verification, rate limiting, and deliberate warning/confirmation.
+- No public registration and no ordinary password-reset route. Define secure recovery before production.
+- Permanent database deletion must explicitly explain whether live data, files and backup copies are included. Never imply backup copies are deleted if they are retained.
+- Never expose service-role keys, database master credentials, private keys or destructive-action secrets in browser code, client bundles, logs, screenshots or ordinary APIs.
+- Do not place Silent Owner controls in passenger/driver or OTS Work navigation.
+- The private site remains separate from the three operational owners' maintenance mode. Operational maintenance mode is controlled by any one of the three operational owners; Silent Owner emergency freeze is a separate, higher-precedence restriction.
+
+13.7 — CITY-WISE PEOPLE DIRECTORY AND PROTECTED DOCUMENT REVIEW
+
+This is a required planning feature for the Silent Owner's private site, not a public directory.
+
+Directory:
+- Separate Passenger and Driver views or filters.
+- City-wise grouping and A–Z sorting.
+- Search, filter, and pagination so large lists remain usable.
+- Show only operationally necessary summary information by default.
+- Make account status visible (for example pending verification, approved, suspended, locked, or inactive) only where meaningful to the role and data.
+- Avoid exposing full CNIC or document images in the list view.
+- Enforce backend authorization on each query and record access; do not fetch every user's private data into the browser and hide it visually.
+
+Secure document viewer:
+- Show document type, submission time, expiry date where relevant, review status, and authorized review history.
+- Allow opening CNIC front/back, selfie, driving licence, vehicle registration documents and vehicle photos only for authorized review.
+- Use protected storage policies and short-lived access where supported; do not make private documents public.
+- Record who viewed/downloaded a protected document, when, and for what authorized purpose where appropriate.
+- Provide a clear not-found, expired-link, access-denied, loading, and failed-upload state.
+- Keep access to passenger documents more restrictive than a general profile view; show only what is required for a specific authorized task.
+- Define retention, deletion, appeals, legal basis and access policies before real users' documents are collected.
+
+13.8 — SAFETY, SECURITY, AND RELIABILITY ACCEPTANCE REQUIREMENTS
+
+Before a production launch, verify at minimum:
+- Driver cannot publish trips or accept new bookings before approval, after required documents expire, or during a blocking suspension.
+- Client-side role changes cannot bypass server authorization.
+- A worker cannot issue refunds, approve drivers, change fares, or manage owner accounts unless explicitly authorized by a permitted role.
+- Operational owners cannot access the Silent Owner identity, account, website or private audit trail.
+- The Silent Owner emergency freeze cannot be lifted by operational owners and overrides ordinary operational freeze state.
+- Ordinary freeze can be lifted by any one operational owner and does not hide essential active-trip tickets/SOS.
+- Owner creation/replacement cannot proceed without all three individual approvals; OTPs are request-bound, short-lived and single-use.
+- Seat holds, bookings, trip-segment overlaps and payment callbacks are concurrency-safe and idempotent.
+- Offline counter sales are never represented as confirmed before server validation.
+- Duplicate QR scans/boarding are detected; offline validations reconcile safely.
+- Payment status is verified after uncertain connectivity; no false failure/success and no duplicate charge/booking.
+- Passenger cancellation refund is calculated from booking-confirmation time according to the confirmed 8-hour rule.
+- Driver cancellation allows immediate full refund choice and replacement at no extra passenger cost.
+- CNIC and protected documents are not exposed through QR codes, notifications, ordinary logs, public URLs, or default worker screens.
+- Protected document viewing and sensitive administrative actions are audited.
+- Sessions can be revoked safely; booking history is not deleted by logging out a device.
+- Account locks and driver suspensions have secure recovery/review routes and preserve confirmed bookings.
+- Backup restore is tested, not merely configured; destructive actions and backup retention are explicitly documented.
+- English/Urdu rendering, Urdu RTL layout, navigation/back behavior, text contrast, accessibility, and responsive screen sizes are tested.
+- Online/offline/reconnecting, permission denial, app updates, notifications denied, server errors, empty states, and expired sessions are tested.
+- SOS and emergency-contact behavior is tested with confirmed delivery states and honest fallbacks.
+- No provider integration is called functional until a real end-to-end test proves it.
+
+13.9 — DESIGN AND QUALITY CHECKLIST
+
+The interface should feel like a premium transport product, not a generic admin template:
+- Clear hierarchy, consistent spacing, typography, icons, button styles and color tokens.
+- Strong contrast and readable input text; placeholders remain visible but visually secondary.
+- Avoid repeated/incorrect vehicle images, placeholder content that looks real, and inconsistent seat diagrams.
+- Use the actual registered vehicle layout and state.
+- Keep primary actions obvious and destructive actions clearly separated.
+- Explain pending/confirmed/failed/retry/restricted states in plain language.
+- Use helpful empty states and recovery actions rather than blank screens.
+- Every screen must support Android back navigation and preserve sensible form progress when returning.
+- Language change in Settings works and updates RTL/LTR layout correctly.
+- Do not label the product “demo” in user-facing production UI unless the user specifically requests a demo environment.
+- Keep operational dashboards information-dense but role-limited; keep passenger screens simple and focused.
+- Avoid showing live GPS, payments, notifications, SMS, or account verification as active if not configured and tested.
+
+13.10 — APP UPDATE, CONNECTIVITY, NOTIFICATION AND SESSION REQUIREMENTS
+
+These supplement Rules 93–98 and should be retained as a release checklist:
+- App update handling must explain when an update is required or recommended; avoid trapping a user without a safe explanation.
+- Online/offline/reconnecting state must be visible when it affects booking, ticket validation, or operations.
+- Permission requests for notifications, location, camera, and files should be contextual and explain why they are needed. If denied, show an appropriate fallback.
+- Session expiry and device security must preserve unsynced work where safe and must not falsely confirm server-side actions.
+- Privacy/data access must be enforced server-side and sensitive fields masked by default.
+- Fraud monitoring must have proportionate restrictions, protected audit events, false-positive recovery and appeal paths.
+- Support/complaints must include status, assignment, updates, and escalation where defined.
+- Security controls must not reveal exploitable detection thresholds or secrets to ordinary users.
+
+13.11 — IDEAS THAT MUST REMAIN OPEN UNTIL APPROVED
+
+The following are not final decisions and must not be silently implemented as if approved:
+- Exact passenger emergency-contact sharing during SOS, including the default behavior when the passenger has not opted in.
+- Final OTP/MFA provider and whether SMS costs are acceptable.
+- Exact Google sign-in provider configuration and production redirect handling.
+- Payment gateway, cash/electronic payment launch scope, reconciliation process, and refund execution.
+- Maps/GPS provider, location sharing limits, background-location behavior, offline maps, battery/data usage, and costs.
+- Verified emergency numbers and escalation contact tree.
+- Applicable Pakistan privacy, CNIC handling, transport licensing, document retention, consumer protection and financial record obligations.
+- Backup provider, encryption-key custody, retention schedule and disaster recovery process.
+- Exact manager permission presets and which sensitive actions require a second approver.
+- Vehicle-specific seat templates for each actual vehicle, route-segment fare allocation, terminal/toll fee calculation, and capacity policy.
+- Female-seat courtesy policy must be reviewed for fairness, privacy, safety and implementation details; the current confirmed behavior is a warning, not an automatic block.
+- Home pickup service area and extra-fee rules, if that feature is retained.
+- Messaging templates, consent, WhatsApp/SMS delivery and provider costs.
+- App signing, release distribution, Play Store requirements and whether any fee is unavoidable.
+- Secure Silent Owner recovery procedure and key custody.
+- Data export, deletion, appeal and complaint response time targets.
+- The remaining requirements conversation is paused. Resume one question at a time only when the user asks.
+- A full audit of all requirements and conflicts is required before implementation, as established by Rule 100.
+
+13.12 — WORKFLOW FOR FUTURE SESSIONS
+
+Before each OTS Transport task:
+1. Fetch and review this complete master file, not just the latest appended section.
+2. Identify the exact target project and repository. Never guess the URLs for “OTS Work” or “Silent One”.
+3. Classify each request as documentation, design review, implementation, testing, or deployment.
+4. For documentation-only work, do not modify application code.
+5. For implementation, wait for explicit user authorization and stay within the specified repository.
+6. Make a small, scoped change; inspect the diff and test results before claiming success.
+7. Record any newly confirmed decision in this file with a date and an explicit status.
+8. Keep open questions marked OPEN/DEFERRED; do not turn suggestions into requirements.
+9. Report separately what changed in the repository, what was tested, what passed/failed, and what remains.
+10. Never claim a feature is “done” merely because it appears in a plan, mockup, screenshot, or checklist.
+
+13.13 — CURRENT CHECKPOINT AFTER THIS DOCUMENT UPDATE
+
+- This update is a documentation consolidation of existing confirmed requirements and the additional UI/operations/security ideas above.
+- It does not verify that any app screen, APK, database schema, API, payment, GPS, SMS/OTP, private website, staff workflow, directory, document viewer, backup, or freeze control has been implemented.
+- The user's latest task was to update this master TXT with planned features, confirmed decisions and ideas. That is the scope of this update.
+- Next implementation/design review should begin only after the user specifies the next task; the requirements discussion remains paused unless the user explicitly resumes it.
+
+End of master update.
