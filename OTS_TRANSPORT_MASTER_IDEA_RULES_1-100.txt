@@ -663,3 +663,12 @@ The included luggage allowance differs by vehicle type:
 - Additional heavy luggage costs PKR 500 per additional bag, subject to the luggage rules and capacity limits for that vehicle.
 - Show applicable luggage charges clearly before the passenger confirms the booking.
 - Each checked bag receives a unique 4-digit tag ID and QR/barcode linked to the ticket. The tag must not expose the passenger’s private information.
+
+FD-06 — Cancellation refund policy applies to all passenger bookings
+The standard passenger cancellation refund policy applies to all passenger booking types, including private whole-car bookings, unless an authorized operational owner approves an exception:
+- If the passenger cancels within the first 8 hours after booking confirmation, the standard refund is 100%.
+- After the first 8 hours have elapsed, the standard refund is 75%, with 25% retained.
+- Exactly 8 hours after booking confirmation is treated as “after the first 8 hours” for this policy, so the standard refund is 75%.
+- The time calculation starts from booking confirmation, not from the scheduled departure time.
+- Any authorized exception must be recorded with the decision, reason, responsible authorized person, and financial adjustment history. Preserve the original booking, cancellation, and refund records.
+
