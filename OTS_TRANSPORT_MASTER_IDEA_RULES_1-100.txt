@@ -654,3 +654,12 @@ If a passenger requests a different pickup or drop-off:
 - If the new fare is lower, handle the difference through an authorized refund or fare adjustment.
 - If the change is not possible because of route, timing, or seat availability, leave the original booking unchanged.
 - Preserve the original booking and fare history for auditability.
+
+
+FD-05 — Vehicle-specific included luggage allowance
+The included luggage allowance differs by vehicle type:
+- Cars: 1 standard bag is included in the ticket price.
+- Hi-roof vans, Coasters, and buses: 3 luggage items are included free.
+- Additional heavy luggage costs PKR 500 per additional bag, subject to the luggage rules and capacity limits for that vehicle.
+- Show applicable luggage charges clearly before the passenger confirms the booking.
+- Each checked bag receives a unique 4-digit tag ID and QR/barcode linked to the ticket. The tag must not expose the passenger’s private information.
