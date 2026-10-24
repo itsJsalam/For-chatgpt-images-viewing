@@ -633,3 +633,24 @@ These are design references, not proof that the current app already matches or i
 The user has confirmed Rules 91–99 and agreed to Rule 100 as the proposed next step: perform a full requirements audit before further rules or implementation. This file is the consolidated planning document. It does not authorize code changes or claim that the app, website, backend, payments, GPS, SOS, notifications, or backups are already implemented.
 
 End of document.
+
+
+4. CONFIRMED FOLLOW-UP DECISIONS (2026-10-24)
+
+These decisions were explicitly confirmed by the user during the follow-up requirements review. They supplement the existing product rules 1–100 and conversation rules 1–45; they do not renumber or replace those sequences.
+
+FD-01 — Actual vehicle seat layouts
+For hi-roof vans, Coasters, and buses, use the actual seat layout of each registered vehicle. The layout must be configured and approved by an operational owner and used for seat selection, availability, and bookings. Cars remain fixed at 5 total seats: 1 driver seat, 1 front passenger seat, and 3 rear passenger seats.
+
+FD-02 — Female-seat courtesy preference
+When a woman books a seat alone, mark an adjacent available passenger seat as “Female Preferred.” If a man attempts to book that adjacent seat, show a polite courtesy warning. This warning alone must not automatically block the booking.
+
+FD-03 — Terminal and toll fee transparency
+Calculate terminal fees and toll charges separately for each route or route segment, display them as separate line items before booking, and save a fare snapshot with the confirmed booking. Later price changes must not unexpectedly change the price or terms of an existing confirmed booking.
+
+FD-04 — Changing pickup or drop-off after booking
+If a passenger requests a different pickup or drop-off:
+- If the new fare is higher, display the extra charge and obtain the passenger’s approval before collecting payment.
+- If the new fare is lower, handle the difference through an authorized refund or fare adjustment.
+- If the change is not possible because of route, timing, or seat availability, leave the original booking unchanged.
+- Preserve the original booking and fare history for auditability.
