@@ -57,6 +57,155 @@ The likely stack is Supabase/PostgreSQL with server-enforced authorization, auth
 14. The user wants one question at a time and is still in requirements/planning mode. Do not make code changes or claim a feature is implemented unless explicitly authorized.
 
 ====================================================================
+3A. DETAILED CONFIRMED CONVERSATION RULES 1–45
+====================================================================
+
+IMPORTANT NUMBERING NOTE
+The following records the user's earlier numbered discussion in its own sequence. The later product specification below also numbers foundational product requirements 1–43, so these are two different numbering systems. Both are retained to avoid losing either the user's decisions or the product requirements. The rules below are reconstructed faithfully from the full discussion pasted by the user on 24 October 2026; they are detailed summaries, not a claim that every sentence is a verbatim transcript.
+
+CONVERSATION RULE 1 — Silent Owner authority and irreversible deletion
+OTS Transport has one hidden Silent Owner with ultimate emergency authority. The Silent Owner can trigger a one-tap emergency freeze affecting both the Passenger/Driver app and the Workers/Operational Owners app; override operational owners; control accounts, permissions, system settings and database records; and initiate permanent deletion of the entire database. The Silent Owner works only through a separate private website, not either app. No Silent Owner account, role, entry point or management option appears in ordinary operational interfaces. Emergency freeze is immediate; permanent database destruction is deliberately separated behind a warning, a protected 24-character confirmation key, backend verification and an explicit deletion process. Backup retention/deletion must be explained separately, and database master credentials must never be exposed in browser code.
+
+CONVERSATION RULE 2 — Emergency freeze behavior
+The emergency freeze stops new activity: new bookings, new trip publishing and routine operations are blocked. Existing journeys continue to have access to essential trip information and tickets, and SOS/emergency safety paths remain available wherever technically possible. Both apps are affected. The Silent Owner website remains available to investigate and lift the freeze. Freeze enforcement belongs to the backend, not just the app interface.
+
+CONVERSATION RULE 3 — Permanent database deletion flow
+The Silent Owner selects “Permanently Delete Entire Database”; the website presents a clear warning describing consequences and backup behavior; the Silent Owner enters a 24-character confirmation key; the backend securely verifies authorization and the key; only then may irreversible deletion begin. The key must be securely stored, never exposed in browser code or logs, and protected against repeated guessing. The policy must say whether live data, backup copies and stored files are included; deleting live data alone does not mean retained backups are destroyed.
+
+CONVERSATION RULE 4 — Silent Owner authentication
+The private site requires a unique username and strong password plus an authenticator security code or passkey. Destructive actions also require the separate 24-character confirmation key. Backend-enforced authorization, rate limits, secure sessions and protections against unauthorized access are mandatory. There is no public registration or ordinary “Forgot password?” flow for this account. A separate secure recovery process must be defined so the safety authority cannot be lost permanently.
+
+CONVERSATION RULE 5 — Private provisioning of the single Silent Owner
+Exactly one Silent Owner account is privately provisioned during initial setup. There is no public registration or way for operational users to create another. Credentials, passkey/authenticator and destructive-action key are configured privately. The backend enforces the one-account limit; merely hiding a creation screen is not enough. The website remains separate from both apps.
+
+CONVERSATION RULE 6 — Hidden from operational views
+Workers and operational owners cannot see or discover the Silent Owner identity, account, role, private website, controls or detailed private audit records in user lists, reports, logs, dashboards or app interfaces. This is enforced by backend authorization and data separation, not only by hiding UI elements. The Silent Owner website retains its protected audit trail. Hiding it from business operators does not mean the private security trail is omitted.
+
+CONVERSATION RULE 7 — Operational owner authority boundary
+The three operational owners have broad authority to run the transport business: driver verification, document approval/rejection, route/stop/schedule/vehicle/fare operations, bookings, cancellations/refunds, finances, worker management, terminal work, breakdowns, passenger safety and routine operations. They cannot access, discover, manage, impersonate or override the Silent Owner, its website, credentials, keys or private records. They cannot permanently destroy the entire database. Backend checks enforce the boundary.
+
+CONVERSATION RULE 8 — Operational freeze
+Any one of the three operational owners can activate an ordinary operational freeze during an incident. The action is recorded in the operational audit trail. This ordinary freeze is separate from the higher-level Silent Owner emergency freeze. The Silent Owner can override ordinary freezes and retains the ultimate emergency authority.
+
+CONVERSATION RULE 9 — Shared operational unfreeze
+Any of the three operational owners can lift an ordinary operational freeze, even if another owner initiated it. No one needs the original initiator to be online. This does not grant the ability to lift a Silent Owner emergency freeze.
+
+CONVERSATION RULE 10 — Safe ordinary freeze behavior
+An ordinary operational freeze stops new bookings and new trip publishing. Existing tickets and trip details remain accessible, active journeys can continue, and SOS remains available wherever connectivity permits. Any operational owner can lift this ordinary freeze. The system must distinguish this freeze from the Silent Owner emergency freeze.
+
+CONVERSATION RULE 11 — Emergency freeze precedence
+Operational and Silent Owner freezes are tracked separately. Owners can lift operational freezes, but the apps remain restricted while the Silent Owner emergency freeze is active. Only the Silent Owner can lift its emergency freeze. Changes to an ordinary freeze can never accidentally or deliberately override the Silent Owner restriction. Essential active-journey safety and SOS paths remain available wherever possible.
+
+CONVERSATION RULE 12 — Operational audit visibility
+All three operational owners can review each other's operational actions, including driver approvals, fare and route changes, refunds and operational freeze events. Workers see only information required for assigned duties. Silent Owner identity, actions and private audit records remain hidden from all operational accounts. The Silent Owner maintains a separate protected audit trail.
+
+CONVERSATION RULE 13 — Owner creation/replacement requires unanimity
+Owner-management options may appear in operational owner accounts, but a new operational owner cannot be created or an existing one replaced until all three existing operational owners approve using their individual OTPs. Each OTP must be verified and tied to that specific request. These controls cannot create, replace or change the Silent Owner.
+
+CONVERSATION RULE 13A — Unavailable owner and emergency override
+If even one operational owner is unavailable, the owner creation/replacement request remains blocked; the other two cannot bypass the missing approval. The Silent Owner can independently add, remove, replace or freeze an operational owner. OTPs are short-lived, single-use and request-bound.
+
+CONVERSATION RULE 14 — Owner self-service password recovery
+Each operational owner can recover their own account using SMS OTP sent to their verified phone number and then set a new password. They do not need the other two owners to reset their own password. This process cannot reset, replace, freeze or alter another owner's account. OTP expiry, one-time use and rate limits are required. The Silent Owner retains independent emergency authority.
+
+CONVERSATION RULE 15 — Owner phone-number changes
+An operational owner may change only their own registered phone number after authenticating with their existing account and verifying the new number by SMS OTP. The other owners' approval is not required. If the owner loses both account access and access to the old number, a separate recovery procedure is required. No owner can change another owner's number through this flow.
+
+CONVERSATION RULE 16 — Worker permissions
+Workers may sell walk-in/counter tickets and record cash, search bookings by CNIC/phone/ticket ID, print and attach luggage tags, scan tickets, support boarding and luggage handover, and print/export authorized passenger manifests. They cannot approve/reject drivers, change or approve fares, issue refunds, manage owner accounts, freeze/unfreeze apps, or access Silent Owner controls or records. Backend permission checks are mandatory.
+
+CONVERSATION RULE 17 — Offline counter ticketing
+Workers may prepare cash ticket sales while offline, but a sale remains pending and is not a confirmed booking until the server verifies seat and route-segment availability after reconnection. Use a secure pending queue, idempotency and duplicate prevention. If the seat has been taken, flag the conflict for staff resolution rather than falsely confirming the ticket. Record cash for reconciliation.
+
+CONVERSATION RULE 18 — Worker cancellation requests
+Workers may look up a ticket and submit a cancellation request, but cannot independently finalize cancellations or issue refunds. An operational owner must authorize cancellation and any refund; a manager may do so only if assigned the necessary refund permission. Preserve the original booking and financial history.
+
+CONVERSATION RULE 19 — Routine approval authority
+Any one operational owner can approve routine business actions, including driver onboarding, routes/schedules/fares, refunds and cancellation requests, worker management, terminal operations, breakdown response and routine business decisions. The exception is owner creation/replacement, which requires all three owners' OTP approvals. Silent Owner authority remains separate and superior.
+
+CONVERSATION RULE 20 — Owner disagreements and future managers
+Routine actions can proceed with one operational owner's authorization and must be recorded in the operational audit history visible to the three owners. The architecture should support managers as a separate future role without rebuilding the platform. Managers do not automatically become owners and cannot access Silent Owner controls or protected records. Exact manager permissions are assigned explicitly.
+
+CONVERSATION RULE 21 — Managers' substantial operational powers
+Managers are not limited to observation. If appointed and granted the relevant permissions, they may approve/reject drivers, process eligible refunds, create/manage routes, stops and schedules, make major route/fare changes, supervise staff and terminals, monitor bookings/sales, coordinate trips and breakdowns, and arrange passenger reassignment. Their access is permission-based and never includes owner-account management or overriding a Silent Owner emergency freeze.
+
+CONVERSATION RULE 22 — Manager appointment and permissions
+Any one operational owner can create a manager account, assign or change its permissions, grant/refine powers for driver approvals, refunds and route/fare changes, and suspend or remove the manager. Actions are recorded for operational oversight. Managers cannot give themselves powers or access the Silent Owner's private controls.
+
+CONVERSATION RULE 23 — Managers cannot appoint managers
+Only the three operational owners can create, remove, suspend or change manager accounts and permissions. Managers cannot appoint other managers, promote staff into management or administer their peers' accounts.
+
+CONVERSATION RULE 24 — Manager-initiated ordinary freeze
+An authorized manager can initiate an ordinary operational freeze during a serious incident. The system must notify all three operational owners before or as the freeze is activated. The freeze is logged. Any operational owner can lift it. A Silent Owner emergency freeze remains unliftable by owners/managers.
+
+CONVERSATION RULE 25 — No wait for owner approval
+A manager does not have to wait for an owner's response before activating an urgent ordinary freeze. The system sends notifications to all three operational owners and lets the manager proceed immediately. Record the manager, timestamp and reason if provided. Notification failures are recorded and retried where possible but do not block the urgent freeze. Preserve existing journeys and SOS wherever possible.
+
+CONVERSATION RULE 26 — Shared unfreeze of manager-initiated freeze
+Any operational owner or any authorized manager may lift an ordinary operational freeze regardless of who initiated it. The action is recorded. Managers cannot lift the Silent Owner emergency freeze.
+
+CONVERSATION RULE 27 — Managers cannot alter each other's permissions
+Every manager has an individual account and independently assigned permissions. Manager A cannot change Manager B's permissions; managers cannot self-grant privileges or pass them to another manager. Only operational owners can assign, change or revoke manager permissions. Actions are attributed to the individual manager.
+
+CONVERSATION RULE 28 — Managers can review each other's work
+Managers can review operational actions by other managers, including driver approvals, refunds, route/fare changes and freeze events. Records identify the actor and cannot be silently changed. The three operational owners retain oversight. Silent Owner identity, actions and protected audit remain hidden.
+
+CONVERSATION RULE 29 — Authorized reversals between managers
+A manager may reverse another manager's decision only if the reversing manager has the relevant permission. Preserve the original action and record the reversal, timestamp and reason. For financial actions, use a compensating adjustment transaction rather than deleting or overwriting the original transaction. Owner oversight remains available.
+
+CONVERSATION RULE 30 — Workers see operational outcomes, not management records
+Workers see only task-relevant results and instructions, such as cancellation/refund approval, driver approval status, ticket validity, boarding clearance and route/trip changes affecting their work. They do not see full financial records, management audit histories, unrelated worker information or Silent Owner protected information.
+
+CONVERSATION RULE 31 — Individual worker accounts
+Every worker has an individual login, assigned role, terminal/work location and permissions. No shared staff login. Attribute ticket sales, cash records, luggage handling, scans and other actions to the actual worker. Access can be suspended without affecting other accounts; records remain preserved.
+
+CONVERSATION RULE 32 — Worker account administration
+Any operational owner can create, edit, suspend or remove workers. A manager can do so only when an owner explicitly grants the relevant worker-management permission. Managers cannot grant themselves or pass along that permission. Record account-management actions for operational oversight.
+
+CONVERSATION RULE 33 — Worker departure and restoration
+An operational owner or authorized manager can suspend a departing worker immediately. Suspension blocks sign-in and work, and revokes active sessions where possible. Preserve the worker's ticket-sale, cash, luggage and scan history. An authorized owner can reactivate the worker if they return; manager access depends on assigned permissions.
+
+CONVERSATION RULE 34 — Manager account suspension
+Any operational owner can immediately suspend or reactivate a manager. Managers cannot suspend, reactivate or alter peer manager accounts. Suspension revokes access and active sessions where possible while preserving prior actions and audit history. A suspended manager cannot use assigned permissions.
+
+CONVERSATION RULE 35 — Silent Owner can block any account tier
+The Silent Owner can immediately block or suspend any operational owner, manager, worker, passenger or driver without the target's approval. The backend enforces the block and revokes active sessions where possible. Records remain intact unless a separate authorized deletion process is used. This ability remains hidden in the private website.
+
+CONVERSATION RULE 36 — Account restoration hierarchy
+Workers may be restored by operational owners or managers with permission. Managers may be restored only by operational owners. If the Silent Owner blocked an operational owner, only the Silent Owner can restore that owner. Passenger/driver accounts may be restored by authorized operational owners/managers unless a Silent Owner restriction remains active. Only the Silent Owner can lift its emergency freeze or its own protected restrictions. Ordinary reactivation must never bypass a Silent Owner block.
+
+CONVERSATION RULE 37 — No mandatory reason for Silent Owner account blocks
+The Silent Owner can block any account immediately without entering a reason or waiting for approval. The system automatically records basic protected audit facts such as target account, action and timestamp. A reason may be added but is optional. Operational users cannot view this private record.
+
+CONVERSATION RULE 38 — No mandatory reason for Silent Owner emergency freeze
+The Silent Owner can activate the emergency freeze with one tap, without a reason or approval. No waiting period applies and operational owners cannot override it. Preserve existing journeys and SOS wherever safely possible. Automatically record the event in the protected audit trail, hidden from operational users.
+
+CONVERSATION RULE 39 — Silent Owner control of operational-owner permissions
+The Silent Owner can independently grant, modify or revoke an operational owner's individual permissions, restrict selected capabilities without freezing the whole account, block the entire account, or restore access/permissions. The backend enforces these changes; only the private website exposes the controls.
+
+CONVERSATION RULE 40 — Silent Owner control of manager permissions
+The Silent Owner can directly grant, modify, revoke or restore any manager's permissions, restrict specific capabilities, or block the manager's entire account. These powers override operational-owner decisions and are private to the Silent Owner website.
+
+CONVERSATION RULE 41 — Silent Owner financial oversight
+The Silent Owner has read access to online payments, transaction history, cash sales and reconciliation, refunds/cancellation fees, driver earnings/payouts, route fares, terminal/toll fees, revenue analytics and discrepancies. It can make authorized corrections and adjustments. Never silently overwrite financial history: preserve the original transaction and record an adjustment. Permanent database deletion remains a separate protected action requiring the 24-character confirmation key.
+
+CONVERSATION RULE 42 — Silent Owner access to personal and identity records
+The Silent Owner can access passenger and driver identity details, verified phone numbers, driver CNIC front/back, selfies, licences, vehicle documents, bookings, tickets, route/trip histories, emergency alerts and safety reports. Sensitive documents remain in private storage and are served only through secure authorized backend requests, never public predictable URLs. This access is unavailable to ordinary operational users except for narrow tasks explicitly required by their role.
+
+CONVERSATION RULE 43 — Silent Owner live GPS and trip history
+The Silent Owner can view live GPS for active vehicles/trips, route, pickup/drop-off stops, journey status, relevant location history and emergency alert locations. Safety information for active journeys remains available during freezes wherever connectivity permits. GPS collection is limited to defined operational/safety purposes, with clear disclosure, retention limits and access controls.
+
+CONVERSATION RULE 44 — GPS retention
+Keep live GPS available during the active trip. Retain ordinary detailed trip GPS history for 90 days, then automatically delete it unless a justified exception applies. Retain SOS/breakdown GPS records for one year and then review whether deletion or a justified extension is needed. Hold investigation-related GPS only as long as genuinely required with periodic review. Retain financial records under applicable legal/accounting requirements. Restrict and protect detailed location access.
+
+CONVERSATION RULE 45 — Silent Owner system-wide configuration
+The Silent Owner can change system-wide settings such as refunds, luggage fees, seat-hold duration, routes/fares/taxes, verification rules, notification settings and security/permissions. Changes apply to future bookings by default; existing confirmed prices and terms must not unexpectedly change. Any necessary correction to an existing booking must be authorized, transparent and recorded. The backend remains the authority.
+
+====================================================================
+END OF DETAILED CONVERSATION RULES 1–45
+====================================================================
+
+====================================================================
 4. FOUNDATION RULES 1–43
 ====================================================================
 
