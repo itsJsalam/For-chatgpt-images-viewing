@@ -1,0 +1,160 @@
+OTS TRANSPORT — DETAILED HANDOFF FOR NEW CHAT
+Date: 2026-10-25
+
+READ THIS FIRST
+This handoff is continuity context, not a replacement for the master rules. The user's standing instruction is to read the full master rules file before every project task/change:
+https://github.com/itsJsalam/For-chatgpt-images-viewing/blob/main/OTS_TRANSPORT_MASTER_IDEA_RULES_1-100.txt
+
+Do not edit until the rules have been read. Work directly on main; user does not want pull requests. Inspect current repo state before changes. Report truthfully: UI is not backend integration; queued is not successful; a successful build does not prove an APK artifact exists.
+
+1. REPOSITORIES — KEEP THEM SEPARATE
+APP 1 (Android passenger + driver app): https://github.com/itsJsalam/Ots-transport
+Current primary source: app/src/main/java/pk/ots/transport/MainActivity.kt
+Workflow: https://github.com/itsJsalam/Ots-transport/actions/workflows/android-build.yml
+
+APP 2 (separate staff/operations/admin Android app): https://github.com/itsJsalam/Ots-work
+
+Silent Owner private website: https://github.com/itsJsalam/Silent-one-
+
+Master rules and blueprints: https://github.com/itsJsalam/For-chatgpt-images-viewing
+Rules file: OTS_TRANSPORT_MASTER_IDEA_RULES_1-100.txt
+App 1 blueprints: ots transport blueprints/ots transport app 1/
+Previous inventory reported 53 PNG blueprint images.
+
+WRONG/OLD REPOSITORY — DO NOT EDIT APP 1 HERE:
+https://github.com/itsJsalam/Khuzdar-OTS-car-service
+The user explicitly corrected this repository mix-up.
+
+2. PRODUCT PURPOSE
+OTS Transport is a scheduled intercity ride / carpool / seat-booking Android app, initially focused on Khuzdar, Balochistan, with routes to destinations across Pakistan. Currency context: PKR. It should look premium, polished and trustworthy, comparable in quality to established ride-booking apps. User wants an actual Android APK, not a website, and prefers free-first/PKR 0 solutions.
+
+Vehicle types in scope/planning: cars, vans, coasters, buses. Seat maps must eventually vary by vehicle type. Current car requirement is 5 total seats: 1 driver + 1 front passenger + 3 rear seats. Passenger must never be able to select the driver seat.
+
+Important correction: ONE driver account is linked to ONE vehicle for current scope. Do not implement multiple vehicles per driver now; the user may reconsider later.
+
+Drivers must be approved by the owner/authorized admin before they can publish/start operating trips. This must ultimately be enforced by backend permissions, not only a UI state.
+
+App 1 contains passenger and driver modes. App 2 is separate and intended for owner/authorized staff use. Never expose admin-only operations to ordinary passengers/drivers.
+
+Payments (cash, JazzCash, Easypaisa) have been shown/discussed as UI/future features but are not verified as integrated. Do not claim payments, bookings, tickets, seat holds, approvals, SOS, live trip tracking, or notifications are real unless the backend confirms them. The user wants to defer features that require paid services. Do not expose credentials or secrets.
+
+3. DESIGN / BRANDING
+Current UI palette in MainActivity.kt:
+Navy = Color(0xFF10243A)
+Gold = Color(0xFFD7A84B)
+Mist = Color(0xFFF3F6FA)
+Muted = Color(0xFF5D6B7A)
+
+Desired style: premium navy/deep blue, gold accents, clean white surfaces, pale blue-grey background, strong readable contrast. Inputs should have dark readable text and grey placeholders. First install should ask English/Urdu once; language can later be changed in Settings. Vehicle/ride graphics should ultimately feel dimensional/3D where practical.
+
+4. CURRENT APP 1 IMPLEMENTATION
+The Compose MainActivity.kt uses a Page enum/state-based screen flow. Recent code adds UI coverage for:
+- First-launch English/Urdu language selection and locally remembered choice.
+- Passenger/driver mode selection.
+- Separate passenger and driver login/sign-up screens.
+- Verification code / OTP screen (UI unless provider is configured).
+- Route search/results, no-rides state, vehicle filters.
+- Driver profile and route details.
+- Whole-vehicle charter request.
+- Seat selection (front passenger and three rear seats; driver seat excluded).
+- Checkout and cancellation policy.
+- Payment method selection (cash/JazzCash/Easypaisa UI only unless separately verified).
+- Payment status/failure and booking/ticket confirmation states.
+- Live trip, cancellation request, SOS status, share trip with consent.
+- Notifications, safety/support, profile/settings.
+- Driver verification, application review/rejected/resubmitted/document-expired states.
+- Publish trip, active trip, wallet, earnings, rate trip, saved places, trip history.
+- Change pickup, driver replacement, trip delay, emergency contacts, lost luggage, hold expired.
+- Loading/offline/error/update-required states.
+
+This is broad screen coverage, not proof that all 53 blueprint PNGs are matched precisely. Some states may be generic fallback content. Audit against the actual PNGs before claiming blueprint parity.
+
+Previously reported issues included: settings missing; passenger login/signup missing; old layout still showing; back/navigation problems; Google button positioned over the back button in an older version; sign-up rate-limit errors. Some UI changes have happened since, but test current code/build before saying these are fixed. Supabase email confirmation previously redirected to localhost and showed otp_expired. Reinspect current auth/config before attempting fixes; do not expose secrets.
+
+5. RECENT APP 1 COMMITS
+- ff9c580a4ccc6e16cec3e700b6b4ca0d932ff112 — Build out App 1 blueprint screen coverage and navigation
+- 564664660a0f35f3bf594ed9bba70296ce6618e1 — Add App 1 blueprint flow screens and honest offline states
+- d281eb4f70189b427602459694a8efd5475a67c0 — Connect sign-in flow to verification-code blueprint screen
+- 925cffe04fcb03f838ae54f24f555a49b50863d2 — Implement detailed App 1 blueprint-specific screen layouts
+- f3e39086e3c2b8a518dcc939640978de3fd68fb7 — Add OTS Transport logo branding to welcome screens
+- 182edb60aba695e0c1c2aecda7edeaa04424f59c — Refine OTS Transport brand mark to navy and gold UI
+
+Latest known App 1 main commit at handoff time:
+182edb60aba695e0c1c2aecda7edeaa04424f59c
+https://github.com/itsJsalam/Ots-transport/commit/182edb60aba695e0c1c2aecda7edeaa04424f59c
+
+Recent Brand() composable update creates a native Compose-style navy-gradient square, gold circle, car icon, “OTS” and “OTS TRANSPORT / INTERCITY • SAFE • RELIABLE” wordmark/tagline. The header on other screens still displays text branding. This is a native UI recreation only, not the generated logo PNG.
+
+6. LOGO — IMMEDIATE OUTSTANDING TASK
+The user requested “Make a new one matching our ui theme,” then “Add it.”
+Image generation created a polished logo: dark navy background, gold/white emblem combining a front-facing car, road and location-pin-inspired ring; “OTS” wordmark; “TRANSPORT”; tagline “INTERCITY • SAFE • RELIABLE”.
+
+Previous tool output said the generated PNG was saved at:
+ /mnt/data/a_clean_polished_app_branding_style_logo.png
+However, a later exact path reported by the tool was:
+ /mnt/data/a_clean_polished_modern_app_branding_style_logo.png
+File ID: file_00000000972482089173dcbbb9e34e7f
+Use caution: path/file may not be available in a new runtime. Recover it from current conversation attachments/file tools if possible; otherwise ask user to upload it again. Do not invent or assume a path.
+
+CRITICAL: the actual generated image is NOT yet committed to the repo and is NOT yet embedded in the app. The recent commits only recreate a similar brand using Compose components. Do not tell the user the generated image has been added until the actual PNG is committed and rendered.
+
+Recommended logo integration:
+- Recover actual PNG.
+- Add it as a real Android resource (e.g. app/src/main/res/drawable-nodpi/ots_transport_logo.png, after checking current resource tree).
+- Use Compose Image/painterResource to show it in language/welcome and mode selection screens without clipping and preserving aspect ratio.
+- Consider a separate square crop/variant for launcher icon; do not shrink a full poster logo into a tiny launcher icon without checking legibility.
+- Inspect AndroidManifest and actual launcher resource tree before updating icons.
+- GitHub MCP update_file only supports UTF-8 text. MCP fetch says binary downloads are unsupported. GitHub MCP create_blob accepts encoding utf-8 or base64, plus create_tree/create_commit/update_ref exist. If using Git Data API for a binary PNG, inspect exact tool schemas and make sure actual PNG bytes are available and validly base64-encoded. Do not guess. If unable, ask user to re-upload the PNG or use a verified file-based path.
+- No PRs; update main safely.
+
+7. BUILD STATUS — RECHECK
+Latest known Android build run when this handoff was written:
+Run ID 40147636618
+URL https://github.com/itsJsalam/Ots-transport/actions/runs/40147636618
+Commit 182edb60aba695e0c1c2aecda7edeaa04424f59c
+Last checked status: queued; conclusion null. It has NOT been verified successful.
+An earlier run:
+https://github.com/itsJsalam/Ots-transport/actions/runs/40147455091
+was also queued when last checked.
+
+In new chat, fetch latest workflow run status. If it fails, inspect job logs and fix actual cause. If successful, inspect artifacts separately to determine if an APK is downloadable. Never assume success/artifact.
+
+8. FEATURES / WORK REMAINING TO VERIFY
+- Integrate actual generated logo PNG into the app; consider launcher icon separately.
+- Verify latest build status and APK artifact.
+- Test language choice persistence and settings language switching.
+- Test navigation/back handling across every screen, including accidental driver entry.
+- Verify separate passenger and driver auth flows and Google button placement/integration.
+- Audit the 53 PNG blueprints against actual app screens; fix verified mismatches one at a time.
+- Verify driver profile/vehicle information and correction flow; enforce one driver = one vehicle.
+- Ensure driver approval gates publishing in backend.
+- Implement real route/trip/search/seat availability/booking/cancellation only when backend is ready.
+- Seat layouts should vary for car, van, coaster and bus; car = driver + front passenger + 3 rear seats.
+- Backend integration for authentication, notifications, live tracking, SOS, payments, tickets and trip status remains to be checked; UI states are not proof.
+- Keep App 2 separate and authorized-only.
+
+9. WORK STYLE
+- User wants direct implementation on main, no pull requests.
+- Read master rules fully before every task/change.
+- Verify repository/source/build state first.
+- Keep user informed in simple, accurate language.
+- User is a beginner with developer tooling; if a manual action is needed, give exact plain steps.
+- Free-first / PKR 0 is a strong preference.
+- Do not conflate repositories.
+- Do not claim code is tested, a build passed, an APK exists, a logo image is embedded, or a backend feature works unless verified.
+
+10. ACTION LOG — 2026-10-25
+- User asked if logo was added; source inspection found text branding, no actual image.
+- Commit f3e39086... added a native Compose logo-style brand block.
+- Generated navy/gold OTS logo image in image generation.
+- User asked to add it; commit 182edb60... refined native Compose branding. This still did not embed PNG.
+- Latest known build run 40147636618 was queued.
+- User then asked for a detailed handoff in a .txt in the same repo as master rules so they can use it to resume in a new chat.
+
+START NEXT CHAT:
+1. Read OTS_TRANSPORT_MASTER_IDEA_RULES_1-100.txt fully.
+2. Check latest main commit and latest Actions run.
+3. Recover actual generated logo PNG and add it as a real resource; if unavailable, ask user to re-upload it.
+4. Integrate logo and verify build/artifact.
+5. Continue blueprint-by-blueprint audit.
+END.
