@@ -1,0 +1,319 @@
+﻿ID,Title (EN),Title (UR),Role,Family,Priority,Status tags
+SH-001,Splash / app initialisation,آغاز / ایپ شروع ہو رہی ہے,Shared,"F0 App entry, global & shared",P1,C+P
+SH-002,First-launch welcome,خوش آمدید,Shared,"F0 App entry, global & shared",P1,C
+SH-003,Choose language,زبان منتخب کریں,Shared,"F0 App entry, global & shared",P0,C
+SH-004,Language change preview (Urdu RTL),زبان کی تبدیلی کا پیش منظر,Shared,"F0 App entry, global & shared",P1,C
+SH-005,Terms & privacy acknowledgement,شرائط اور رازداری کی منظوری,Shared,"F0 App entry, global & shared",P1,C+N
+SH-006,Notification permission education,اطلاعات کی اجازت کی وضاحت,Shared,"F0 App entry, global & shared",P2,C+P
+SH-007,Notification permission denied result,اطلاعات کی اجازت نہیں ملی,Shared,"F0 App entry, global & shared",P2,C+P
+SH-008,Location permission education,لوکیشن کی اجازت کی وضاحت,Shared,"F0 App entry, global & shared",P0,C
+SH-009,Location permission denied,لوکیشن کی اجازت مسترد,Shared,"F0 App entry, global & shared",P0,C
+SH-010,Location blocked — open Settings,لوکیشن بند — سیٹنگز کھولیں,Shared,"F0 App entry, global & shared",P0,C
+SH-011,Microphone / voice search education,مائیکروفون کی اجازت کی وضاحت,Shared,"F0 App entry, global & shared",P2,C+P
+SH-012,Microphone denied,مائیکروفون کی اجازت مسترد,Shared,"F0 App entry, global & shared",P2,C
+SH-013,Camera / QR scan education,کیمرہ / کیو آر سکین کی وضاحت,Shared,"F0 App entry, global & shared",P1,C+P
+SH-014,Camera denied / blocked,کیمرہ کی اجازت مسترد,Shared,"F0 App entry, global & shared",P1,C
+SH-015,Optional app update,اختیاری اپڈیٹ,Shared,"F0 App entry, global & shared",P2,C+N
+SH-016,Required app update,لازمی اپڈیٹ,Shared,"F0 App entry, global & shared",P0,C+N
+SH-017,Maintenance notice,دیکھ بھال کا اعلان,Shared,"F0 App entry, global & shared",P0,C
+SH-018,Service unavailable,سروس دستیاب نہیں,Shared,"F0 App entry, global & shared",P1,C
+SH-019,Session expired,سیشن ختم ہو گیا,Shared,"F0 App entry, global & shared",P0,C
+SH-020,Session recovery after process death,سیشن کی بحالی,Shared,"F0 App entry, global & shared",P0,C+P
+SH-021,Offline (global),آف لائن,Shared,"F0 App entry, global & shared",P0,C
+SH-022,Weak / slow connection,کمزور کنکشن,Shared,"F0 App entry, global & shared",P1,C
+SH-023,Server unavailable (5xx),سرور دستیاب نہیں,Shared,"F0 App entry, global & shared",P1,C
+SH-024,Stale data warning,پرانا ڈیٹا,Shared,"F0 App entry, global & shared",P1,C
+SH-025,Generic recoverable failure,قابلِ بحالی خرابی,Shared,"F0 App entry, global & shared",P1,C
+SH-026,Non-recoverable failure,ناقابلِ بحالی خرابی,Shared,"F0 App entry, global & shared",P1,C+P
+SH-027,Confirmation dialog pattern,تصدیقی ڈائیلاگ,Shared,"F0 App entry, global & shared",P1,C+P
+SH-028,Destructive-action confirmation,حذف/منسوخی کی تصدیق,Shared,"F0 App entry, global & shared",P1,C+P
+SH-029,Bottom-sheet pattern,باٹم شیٹ,Shared,"F0 App entry, global & shared",P1,C+P
+SH-030,Loading / skeleton pattern,لوڈنگ پیٹرن,Shared,"F0 App entry, global & shared",P1,C+P
+SH-031,Empty-state pattern,خالی حالت,Shared,"F0 App entry, global & shared",P1,C+P
+SH-032,No-results pattern,کوئی نتیجہ نہیں,Shared,"F0 App entry, global & shared",P1,C+P
+SH-033,Inline-error pattern,ان لائن خرابی,Shared,"F0 App entry, global & shared",P1,C+P
+SH-034,Snackbar / toast / banner catalogue,سنیک بار اور بینر,Shared,"F0 App entry, global & shared",P1,C+P
+SH-035,Sign-out confirmation,سائن آؤٹ کی تصدیق,Shared,"F0 App entry, global & shared",P1,C
+AU-001,Choose how to continue,جاری رکھنے کا طریقہ,Shared (auth),F1 Authentication & account access,P0,C+P
+AU-002,Sign in,سائن اِن,Shared (auth),F1 Authentication & account access,P0,C+N
+AU-003,Phone number entry,فون نمبر درج کریں,Shared (auth),F1 Authentication & account access,P0,C+N
+AU-004,Phone validation error,فون نمبر کی غلطی,Shared (auth),F1 Authentication & account access,P0,C
+AU-005,Code entry,کوڈ درج کریں,Shared (auth),F1 Authentication & account access,P0,C+N
+AU-006,Resend timer (waiting),دوبارہ بھیجنے کا انتظار,Shared (auth),F1 Authentication & account access,P1,C+P
+AU-007,Invalid code,غلط کوڈ,Shared (auth),F1 Authentication & account access,P0,C
+AU-008,Expired code,کوڈ کی میعاد ختم,Shared (auth),F1 Authentication & account access,P0,C
+AU-009,Too many attempts,بہت زیادہ کوششیں,Shared (auth),F1 Authentication & account access,P0,C
+AU-010,Network failure during OTP,کوڈ کے دوران نیٹ ورک خرابی,Shared (auth),F1 Authentication & account access,P0,C
+AU-011,Verification success,تصدیق کامیاب,Shared (auth),F1 Authentication & account access,P1,C
+AU-012,New-user details,نئے صارف کی تفصیلات,Shared (auth),F1 Authentication & account access,P0,C+P
+AU-013,New-user validation errors,تفصیلات میں غلطیاں,Shared (auth),F1 Authentication & account access,P1,C
+AU-014,Existing-user recovery,اکاؤنٹ کی بحالی,Shared (auth),F1 Authentication & account access,P2,P+N
+AU-015,Account blocked,اکاؤنٹ بلاک,Shared (auth),F1 Authentication & account access,P0,C
+AU-016,Account under review,اکاؤنٹ زیرِ جائزہ,Shared (auth),F1 Authentication & account access,P1,C
+AU-017,Account deletion request,اکاؤنٹ حذف کرنے کی درخواست,Shared (auth),F1 Authentication & account access,P2,P+N
+AU-018,Account deletion confirmation,حذف کی تصدیق,Shared (auth),F1 Authentication & account access,P2,P+N
+AU-019,Re-authentication for sensitive action,حساس عمل کے لیے دوبارہ تصدیق,Shared (auth),F1 Authentication & account access,P1,C+P
+P-001,Passenger Home — default,مسافر ہوم,Passenger,F2 Passenger home & discovery,P0,C
+P-002,Home — first-time empty,ہوم — پہلی بار,Passenger,F2 Passenger home & discovery,P1,C
+P-003,Home — upcoming trip,ہوم — آنے والا سفر,Passenger,F2 Passenger home & discovery,P1,C
+P-004,Home — no upcoming trip,ہوم — کوئی سفر نہیں,Passenger,F2 Passenger home & discovery,P1,C
+P-005,Home — loading,ہوم — لوڈ ہو رہا ہے,Passenger,F2 Passenger home & discovery,P1,C
+P-006,Home — offline / stale,ہوم — آف لائن,Passenger,F2 Passenger home & discovery,P0,C
+P-007,Announcements,اعلانات,Passenger,F2 Passenger home & discovery,P2,C+P
+P-008,Notification centre,اطلاعات,Passenger,F2 Passenger home & discovery,P1,C
+P-009,Voice assistance — start,آواز سے مدد,Passenger,F2 Passenger home & discovery,P2,C+P
+P-010,Voice assistance — help,آواز کی مدد,Passenger,F2 Passenger home & discovery,P2,C+P
+P-011,Voice assistance — listening,سن رہا ہے,Passenger,F2 Passenger home & discovery,P2,C+P
+P-012,Voice — permission denied,آواز — اجازت مسترد,Passenger,F2 Passenger home & discovery,P2,C
+P-013,Voice — no speech,آواز — کچھ سنائی نہیں دیا,Passenger,F2 Passenger home & discovery,P2,C
+P-014,Voice — understood,آواز — سمجھ گیا,Passenger,F2 Passenger home & discovery,P2,C+P
+P-015,Voice — ambiguous result,آواز — غیر واضح,Passenger,F2 Passenger home & discovery,P2,C+P
+P-016,Voice — manual fallback,آواز — دستی طریقہ,Passenger,F2 Passenger home & discovery,P2,C+P
+P-017,Province / region selection,صوبہ / علاقہ منتخب کریں,Passenger,F2 Passenger home & discovery,P0,C+P
+P-018,Region — loading,علاقہ — لوڈ ہو رہا ہے,Passenger,F2 Passenger home & discovery,P1,C
+P-019,Region — no configured destinations,علاقہ — کوئی منزل نہیں,Passenger,F2 Passenger home & discovery,P1,C
+P-020,City selection (suggested + search),شہر منتخب کریں,Passenger,F2 Passenger home & discovery,P0,C+P
+P-021,City — search active,شہر — تلاش جاری,Passenger,F2 Passenger home & discovery,P1,C
+P-022,City — no results,شہر — کوئی نتیجہ نہیں,Passenger,F2 Passenger home & discovery,P1,C
+P-023,City — not served,شہر — سروس نہیں,Passenger,F2 Passenger home & discovery,P1,C
+P-024,Cars or Buses,کار یا بس,Passenger,F2 Passenger home & discovery,P0,C+P
+P-025,Vehicle — category unavailable,گاڑی — دستیاب نہیں,Passenger,F2 Passenger home & discovery,P1,C
+P-026,Select travel date,سفر کی تاریخ,Passenger,F2 Passenger home & discovery,P0,C+N
+P-027,Date — past date blocked,تاریخ — گزری ہوئی,Passenger,F2 Passenger home & discovery,P1,C
+P-028,Date — no service,تاریخ — سروس نہیں,Passenger,F2 Passenger home & discovery,P1,C
+P-029,Date changed — results refresh,تاریخ تبدیل — نتائج ریفریش,Passenger,F2 Passenger home & discovery,P1,C
+P-030,Results — loading,نتائج — لوڈ ہو رہے ہیں,Passenger,F3 Search results & journey detail,P0,C
+P-031,Available journeys — premium cards,دستیاب سفر,Passenger,F3 Search results & journey detail,P0,C
+P-032,No services for route,اس روٹ پر سروس نہیں,Passenger,F3 Search results & journey detail,P0,C
+P-033,No results for date,اس تاریخ پر نتائج نہیں,Passenger,F3 Search results & journey detail,P0,C
+P-034,Filter & sort sheet,فلٹر اور ترتیب,Passenger,F3 Search results & journey detail,P1,C+P
+P-035,Filter active,فلٹر فعال,Passenger,F3 Search results & journey detail,P1,C
+P-036,Results stale,نتائج پرانے,Passenger,F3 Search results & journey detail,P1,C
+P-037,Route no longer available,روٹ دستیاب نہیں,Passenger,F3 Search results & journey detail,P1,C
+P-038,Journey detail,سفر کی تفصیل,Passenger,F3 Search results & journey detail,P1,C
+P-039,Boarding & arrival point,بورڈنگ اور آمد کا مقام,Passenger,F3 Search results & journey detail,P1,C+N
+P-040,Fare & timing explanation,کرایہ اور وقت کی وضاحت,Passenger,F3 Search results & journey detail,P2,C+P
+P-041,Estimated arrival unavailable,متوقع آمد دستیاب نہیں,Passenger,F3 Search results & journey detail,P2,C
+P-042,Seats sold out,سیٹیں ختم,Passenger,F3 Search results & journey detail,P1,C
+P-043,Trip unavailable at selection,انتخاب پر سفر دستیاب نہیں,Passenger,F3 Search results & journey detail,P0,C
+P-044,Results — error,نتائج — خرابی,Passenger,F3 Search results & journey detail,P1,C
+P-045,Return journeys (if configured),واپسی کے سفر,Passenger,F3 Search results & journey detail,P2,C+N
+P-046,Seat map — loading,سیٹ نقشہ — لوڈ,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-047,Seat map — available,سیٹ نقشہ — دستیاب,Passenger,"F4 Seat map, details, booking & payment",P0,C+N
+P-048,Seats selected,سیٹیں منتخب,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-049,Booked & held seats shown,بُک اور روکی ہوئی سیٹیں,Passenger,"F4 Seat map, details, booking & payment",P0,C+P
+P-050,Seat hold active — 10-minute timer,سیٹ ہولڈ — 10 منٹ,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-051,Seat no longer available,سیٹ اب دستیاب نہیں,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-052,Hold expiring soon,ہولڈ ختم ہونے والا ہے,Passenger,"F4 Seat map, details, booking & payment",P0,C+P
+P-053,Hold expired,ہولڈ ختم,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-054,Extend / reselect hold (if supported),ہولڈ بڑھائیں,Passenger,"F4 Seat map, details, booking & payment",P2,P+N
+P-055,Seat list alternative,سیٹ فہرست,Passenger,"F4 Seat map, details, booking & payment",P1,C
+P-056,Vehicle layout — data-driven (bus),گاڑی کا نقشہ — بس,Passenger,"F4 Seat map, details, booking & payment",P1,P+N
+P-057,Passenger details,مسافر کی تفصیلات,Passenger,"F4 Seat map, details, booking & payment",P0,C+N
+P-058,Passenger details — errors,مسافر کی تفصیلات — غلطیاں,Passenger,"F4 Seat map, details, booking & payment",P1,C
+P-059,Edit passenger details,تفصیلات میں ترمیم,Passenger,"F4 Seat map, details, booking & payment",P1,C+P
+P-060,Booking review,بکنگ کا جائزہ,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-061,Fare calculation,کرایہ کی تفصیل,Passenger,"F4 Seat map, details, booking & payment",P1,C
+P-062,Fare changed — acknowledge,کرایہ تبدیل,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-063,Submitting booking,بکنگ جمع ہو رہی ہے,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-064,Reservation conflict,بکنگ میں تصادم,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-065,Server rejected booking,سرور نے بکنگ مسترد کی,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-066,App closed mid-booking — recovery,بکنگ کے دوران ایپ بند — بحالی,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-067,Booking created — payment pending,بکنگ بنی — ادائیگی زیرِ التوا,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-068,Payment method,ادائیگی کا طریقہ,Passenger,"F4 Seat map, details, booking & payment",P0,C+N
+P-069,No payment methods configured,کوئی ادائیگی کا طریقہ نہیں,Passenger,"F4 Seat map, details, booking & payment",P0,C+N
+P-070,Payment handoff,ادائیگی کی منتقلی,Passenger,"F4 Seat map, details, booking & payment",P0,C+N
+P-071,Payment confirmed by server,ادائیگی کی تصدیق,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-072,Payment pending,ادائیگی زیرِ التوا,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-073,Payment failed,ادائیگی ناکام,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-074,Payment cancelled by user,ادائیگی منسوخ,Passenger,"F4 Seat map, details, booking & payment",P1,C
+P-075,Payment timeout — unknown status,ادائیگی ٹائم آؤٹ — حالت نامعلوم,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-076,Payment status re-check,ادائیگی کی حالت دوبارہ چیک,Passenger,"F4 Seat map, details, booking & payment",P0,C
+P-077,Counter / cash flow (if configured),کاؤنٹر / نقد (اگر دستیاب),Passenger,"F4 Seat map, details, booking & payment",P2,P+N
+P-078,Booking confirmed,بکنگ کنفرم,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-079,Pending confirmation,تصدیق زیرِ التوا,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-080,Confirmation failed,تصدیق ناکام,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-081,My Tickets,میرے ٹکٹ,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-082,My Tickets — empty,میرے ٹکٹ — خالی,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-083,My Tickets — offline,میرے ٹکٹ — آف لائن,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-084,QR ticket — confirmed,کیو آر ٹکٹ — کنفرم,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-085,QR enlarged — high contrast,کیو آر بڑا,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-086,Full ticket details,ٹکٹ کی مکمل تفصیل,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-087,Ticket — pending (no QR),ٹکٹ — زیرِ التوا,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-088,Cached ticket — offline,محفوظ ٹکٹ — آف لائن,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-089,Ticket unavailable,ٹکٹ دستیاب نہیں,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-090,Share ticket,ٹکٹ شیئر,Passenger,"F5 Confirmation, tickets & My Trips",P1,C+P
+P-091,Share fallback (system sheet),شیئر — سسٹم شیٹ,Passenger,"F5 Confirmation, tickets & My Trips",P2,C+P
+P-092,Save / show ticket offline,ٹکٹ محفوظ کریں,Passenger,"F5 Confirmation, tickets & My Trips",P2,P+N
+P-093,Ticket history,ٹکٹ کی تاریخ,Passenger,"F5 Confirmation, tickets & My Trips",P2,C
+P-094,My Trips — Upcoming,میرے سفر — آنے والے,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-095,My Trips — Completed,میرے سفر — مکمل,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-096,My Trips — Cancelled,میرے سفر — منسوخ,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-097,My Trips — no upcoming,میرے سفر — کوئی آنے والا نہیں,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-098,My Trips — no completed,میرے سفر — کوئی مکمل نہیں,Passenger,"F5 Confirmation, tickets & My Trips",P2,C
+P-099,My Trips — no cancelled,میرے سفر — کوئی منسوخ نہیں,Passenger,"F5 Confirmation, tickets & My Trips",P2,C
+P-100,Trip details,سفر کی تفصیل,Passenger,"F5 Confirmation, tickets & My Trips",P0,C
+P-101,Trip detail — refreshing,سفر — ریفریش,Passenger,"F5 Confirmation, tickets & My Trips",P2,C
+P-102,Cancelled trip details,منسوخ سفر کی تفصیل,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-103,Booking status changed,بکنگ کی حالت بدل گئی,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-104,Boarding point & departure reminder,بورڈنگ اور روانگی یاد دہانی,Passenger,"F5 Confirmation, tickets & My Trips",P2,P+N
+P-105,Ticket support,ٹکٹ سپورٹ,Passenger,"F5 Confirmation, tickets & My Trips",P1,C
+P-106,Cancellation — checking eligibility,منسوخی — اہلیت کی جانچ,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-107,Refund estimate — 100% (within 8 h),رقم واپسی — 100٪,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-108,Refund estimate — 75% (after 8 h),رقم واپسی — 75٪,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-109,Cancellation confirmation,منسوخی کی تصدیق,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-110,Cancel request pending,منسوخی کی درخواست زیرِ عمل,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-111,Cancellation successful,منسوخی کامیاب,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-112,Cancellation rejected (state changed),منسوخی مسترد,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-113,Cancellation not available,منسوخی دستیاب نہیں,Passenger,"F6 Cancellation, refunds & disruptions",P1,C
+P-114,Refund pending,رقم واپسی زیرِ عمل,Passenger,"F6 Cancellation, refunds & disruptions",P0,C+N
+P-115,Refund completed,رقم واپسی مکمل,Passenger,"F6 Cancellation, refunds & disruptions",P1,C
+P-116,Refund failed — needs support,رقم واپسی ناکام,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-117,Driver cancellation notice,ڈرائیور کی منسوخی کا نوٹس,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-118,Replacement being sought,متبادل ڈرائیور کی تلاش,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-119,Replacement found,متبادل ڈرائیور مل گیا,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-120,No replacement — full refund,کوئی متبادل نہیں — مکمل رقم واپسی,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-121,Delay notice,تاخیر کی اطلاع,Passenger,"F6 Cancellation, refunds & disruptions",P1,C
+P-122,Trip details changed,سفر کی تفصیلات بدل گئیں,Passenger,"F6 Cancellation, refunds & disruptions",P1,C
+P-123,No-show explanation,غیر حاضری کی وضاحت,Passenger,"F6 Cancellation, refunds & disruptions",P1,C
+P-124,Company-caused disruption support,ادارے کی وجہ سے تعطل,Passenger,"F6 Cancellation, refunds & disruptions",P0,C
+P-125,SOS — how it works,SOS — کیسے کام کرتا ہے,Passenger,"F7 Passenger safety, SOS, location & support",P0,C+N
+P-126,SOS — press and hold,SOS — دبائے رکھیں,Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-127,SOS — cancelled before sending,SOS — بھیجنے سے پہلے منسوخ,Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-128,SOS — sending,SOS — بھیجا جا رہا ہے,Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-129,SOS — delivered (server confirmed),SOS — موصول (سرور سے تصدیق),Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-130,SOS — delivery unconfirmed,SOS — تصدیق نہیں ہوئی,Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-131,SOS — offline,SOS — آف لائن,Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-132,SOS — location unavailable/denied,SOS — لوکیشن دستیاب نہیں,Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-133,Retry & escalation guidance,دوبارہ کوشش اور رہنمائی,Passenger,"F7 Passenger safety, SOS, location & support",P0,C+N
+P-134,Emergency call action,ہنگامی کال,Passenger,"F7 Passenger safety, SOS, location & support",P0,C+N
+P-135,Live trip tracking,لائیو سفر کی ٹریکنگ,Passenger,"F7 Passenger safety, SOS, location & support",P1,C+N
+P-136,Location sharing controls,لوکیشن شیئرنگ,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-137,GPS unavailable / stale,جی پی ایس دستیاب نہیں,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-138,Location & privacy explanation,لوکیشن اور رازداری,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-139,Help hub,مدد,Passenger,"F7 Passenger safety, SOS, location & support",P0,C
+P-140,FAQ list,عمومی سوالات,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-141,FAQ detail,سوال کی تفصیل,Passenger,"F7 Passenger safety, SOS, location & support",P2,C
+P-142,Luggage guidance (Help),سامان کی رہنمائی,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-143,Contact support,سپورٹ سے رابطہ,Passenger,"F7 Passenger safety, SOS, location & support",P0,C+N
+P-144,Report a problem — category,مسئلہ رپورٹ کریں,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-145,Report form,شکایت فارم,Passenger,"F7 Passenger safety, SOS, location & support",P1,C+P
+P-146,Submitting report,رپورٹ جمع ہو رہی ہے,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-147,Report submitted,رپورٹ جمع ہو گئی,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-148,Report failed,رپورٹ ناکام,Passenger,"F7 Passenger safety, SOS, location & support",P1,C
+P-149,Safety incident report,حفاظتی واقعہ کی رپورٹ,Passenger,"F7 Passenger safety, SOS, location & support",P0,C+P
+P-150,Settings,ترتیبات,Passenger,"F8 Passenger settings, profile & help",P0,C
+P-151,Profile,پروفائل,Passenger,"F8 Passenger settings, profile & help",P1,C
+P-152,Edit profile,پروفائل میں ترمیم,Passenger,"F8 Passenger settings, profile & help",P1,C
+P-153,Edit profile — field errors,پروفائل — غلطیاں,Passenger,"F8 Passenger settings, profile & help",P1,C
+P-154,Profile — saving,پروفائل — محفوظ ہو رہا ہے,Passenger,"F8 Passenger settings, profile & help",P2,C
+P-155,Profile — saved,پروفائل — محفوظ,Passenger,"F8 Passenger settings, profile & help",P2,C
+P-156,Profile — save failed,پروفائل — محفوظ نہیں ہوا,Passenger,"F8 Passenger settings, profile & help",P2,C
+P-157,Language settings,زبان کی ترتیبات,Passenger,"F8 Passenger settings, profile & help",P0,C
+P-158,Urdu RTL preview,اردو RTL پیش منظر,Passenger,"F8 Passenger settings, profile & help",P1,C
+P-159,Notification settings,اطلاعات کی ترتیبات,Passenger,"F8 Passenger settings, profile & help",P1,C+P
+P-160,Permissions status,اجازتوں کی حالت,Passenger,"F8 Passenger settings, profile & help",P1,C
+P-161,Privacy policy,رازداری کی پالیسی,Passenger,"F8 Passenger settings, profile & help",P1,C+N
+P-162,Terms of use,شرائط,Passenger,"F8 Passenger settings, profile & help",P1,C+N
+P-163,Cancellation & refund policy,منسوخی اور رقم واپسی پالیسی,Passenger,"F8 Passenger settings, profile & help",P1,C
+P-164,About / app version,ایپ کے بارے میں,Passenger,"F8 Passenger settings, profile & help",P2,C
+P-165,Accessibility & voice settings,رسائی اور آواز,Passenger,"F8 Passenger settings, profile & help",P2,P+N
+D-001,Driver home — before approval,ڈرائیور ہوم — منظوری سے پہلے,Driver,"F9 Driver onboarding, approval & profile",P0,C
+D-002,Approval pending,منظوری زیرِ التوا,Driver,"F9 Driver onboarding, approval & profile",P0,C
+D-003,Needs correction / rejected,اصلاح درکار / مسترد,Driver,"F9 Driver onboarding, approval & profile",P1,P+N
+D-004,Driver profile setup,ڈرائیور پروفائل سیٹ اپ,Driver,"F9 Driver onboarding, approval & profile",P0,C+N
+D-005,Vehicle details,گاڑی کی تفصیلات,Driver,"F9 Driver onboarding, approval & profile",P0,C+N
+D-006,Document upload (if required),دستاویزات اپلوڈ,Driver,"F9 Driver onboarding, approval & profile",P1,P+N
+D-007,Upload progress,اپلوڈ جاری,Driver,"F9 Driver onboarding, approval & profile",P1,C
+D-008,Document failed / invalid,دستاویز ناکام / غلط,Driver,"F9 Driver onboarding, approval & profile",P1,C
+D-009,Submission confirmation,جمع کرانے کی تصدیق,Driver,"F9 Driver onboarding, approval & profile",P1,C
+D-010,Driver profile details,ڈرائیور پروفائل,Driver,"F9 Driver onboarding, approval & profile",P1,C
+D-011,Edit request,ترمیم کی درخواست,Driver,"F9 Driver onboarding, approval & profile",P1,P+N
+D-012,Account disabled / suspended,اکاؤنٹ معطل,Driver,"F9 Driver onboarding, approval & profile",P0,C
+D-013,Driver Home — default,ڈرائیور ہوم,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-014,Driver Home — no assigned trip,ہوم — کوئی سفر نہیں,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-015,Driver Home — assigned upcoming trip,ہوم — آنے والا سفر,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-016,Driver My Trips,میرے سفر,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-017,My Trips — empty,میرے سفر — خالی,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-018,Trip details,سفر کی تفصیل,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-019,Route / stop list,راستہ / اسٹاپ,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-020,Passenger manifest,مسافر فہرست,Driver,"F10 Driver home, trips & trip operations",P0,C+P
+D-021,Passenger / ticket lookup,ٹکٹ تلاش,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-022,Scanner ready,سکینر تیار,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-023,Scan — valid ticket,سکین — درست ٹکٹ,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-024,Scan — invalid ticket,سکین — غلط ٹکٹ,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-025,Scan — wrong trip,سکین — غلط سفر,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-026,Scan — already boarded,سکین — پہلے سے سوار,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-027,Scan — pending / unverified,سکین — زیرِ التوا,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-028,Scan — offline warning,سکین — آف لائن,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-029,Boarding recorded,سواری درج,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-030,Boarding status,سوار ہونے کی حالت,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-031,Start-trip eligibility,سفر شروع کرنے کی اہلیت,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-032,Start-trip confirmation,سفر شروع کرنے کی تصدیق,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-033,Starting trip…,سفر شروع ہو رہا ہے…,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-034,Trip started (server confirmed),سفر شروع (سرور سے تصدیق),Driver,"F10 Driver home, trips & trip operations",P0,C
+D-035,Start rejected,شروع مسترد,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-036,Start — offline not accepted,شروع — آف لائن,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-037,Active trip,فعال سفر,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-038,Navigation handoff,نیویگیشن,Driver,"F10 Driver home, trips & trip operations",P2,P+N
+D-039,Report delay,تاخیر رپورٹ کریں,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-040,End-trip eligibility,سفر ختم کرنے کی اہلیت,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-041,End-trip confirmation,سفر ختم کرنے کی تصدیق,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-042,Ending trip…,سفر ختم ہو رہا ہے…,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-043,Trip ended (server confirmed),سفر ختم (سرور سے تصدیق),Driver,"F10 Driver home, trips & trip operations",P0,C
+D-044,End rejected,ختم مسترد,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-045,Post-trip summary,سفر کے بعد خلاصہ,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-046,Trip Records,سفر کے ریکارڈ,Driver,"F10 Driver home, trips & trip operations",P0,C
+D-047,Trip record detail,ریکارڈ کی تفصیل,Driver,"F10 Driver home, trips & trip operations",P1,C
+D-048,Trip Records — empty,ریکارڈ — خالی,Driver,"F10 Driver home, trips & trip operations",P2,C
+D-049,Trip Records — error/refresh,ریکارڈ — خرابی,Driver,"F10 Driver home, trips & trip operations",P2,C
+D-050,Driver SOS,ڈرائیور SOS,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-051,Driver SOS — confirm,SOS — تصدیق,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-052,Driver SOS — sending,SOS — بھیجا جا رہا ہے,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-053,Driver SOS — delivered,SOS — موصول,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-054,Driver SOS — unconfirmed,SOS — تصدیق نہیں,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-055,Driver SOS — offline,SOS — آف لائن,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-056,Breakdown report,خرابی کی رپورٹ,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-057,Breakdown — reason,خرابی کی وجہ,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-058,Breakdown — location status,خرابی — لوکیشن,Driver,"F11 Driver safety, breakdown & help",P0,C
+D-059,Call support,سپورٹ کو کال,Driver,"F11 Driver safety, breakdown & help",P1,C+N
+D-060,Support form,سپورٹ فارم,Driver,"F11 Driver safety, breakdown & help",P1,C
+D-061,Report incident,واقعہ رپورٹ,Driver,"F11 Driver safety, breakdown & help",P1,C
+D-062,Emergency guidance,ہنگامی رہنمائی,Driver,"F11 Driver safety, breakdown & help",P0,C+N
+D-063,Driver Help hub,ڈرائیور مدد,Driver,"F11 Driver safety, breakdown & help",P1,C
+D-064,Driver FAQ,ڈرائیور سوالات,Driver,"F11 Driver safety, breakdown & help",P2,C
+D-065,Ticket / passenger issue,ٹکٹ / مسافر مسئلہ,Driver,"F11 Driver safety, breakdown & help",P1,C
+D-066,Trip disruption status,سفر میں خلل کی حالت,Driver,"F11 Driver safety, breakdown & help",P1,C
+D-067,Driver Settings,ڈرائیور ترتیبات,Driver,"F12 Driver settings, profile & account",P0,C
+D-068,Edit details,تفصیلات میں ترمیم,Driver,"F12 Driver settings, profile & account",P1,C
+D-069,Driver language,زبان,Driver,"F12 Driver settings, profile & account",P1,C
+D-070,Driver notifications,اطلاعات,Driver,"F12 Driver settings, profile & account",P1,C
+D-071,Location permission,لوکیشن کی اجازت,Driver,"F12 Driver settings, profile & account",P0,C
+D-072,Privacy & GPS explanation,رازداری اور جی پی ایس,Driver,"F12 Driver settings, profile & account",P0,C
+D-073,Policies,پالیسیاں,Driver,"F12 Driver settings, profile & account",P2,C
+D-074,App version,ایپ ورژن,Driver,"F12 Driver settings, profile & account",P2,C
+D-075,Account status,اکاؤنٹ کی حالت,Driver,"F12 Driver settings, profile & account",P1,C
+D-076,Approval status detail,منظوری کی تفصیل,Driver,"F12 Driver settings, profile & account",P2,C
+D-077,Document status,دستاویزات کی حالت,Driver,"F12 Driver settings, profile & account",P2,P+N
+D-078,Driver session expired,سیشن ختم,Driver,"F12 Driver settings, profile & account",P1,C
+ERR-001,Slow network — with cancel,سست نیٹ ورک,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-002,No internet before action,انٹرنیٹ نہیں — عمل سے پہلے,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P0,C
+ERR-003,Connection lost during read,پڑھتے وقت کنکشن ٹوٹا,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-004,Connection lost during booking write,بکنگ کے دوران کنکشن ٹوٹا,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P0,C
+ERR-005,Rate limited,بہت زیادہ درخواستیں,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-006,Session expired during action,عمل کے دوران سیشن ختم,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P0,C
+ERR-007,Return from OS Settings,سیٹنگز سے واپسی,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-008,Duplicate taps blocked,ڈبل ٹیپ روکا گیا,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-009,Background / foreground during hold,بیک گراؤنڈ — ہولڈ,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P0,C
+ERR-010,Conflicting seat reservation,سیٹ پر تصادم,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P0,C
+ERR-011,Payment pending reconciliation,ادائیگی کی مطابقت,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P0,C
+ERR-012,Ticket QR needs refresh,کیو آر ری فریش,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,P+N
+ERR-013,Backend validation summary,سرور کی توثیق,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-014,Unhandled exception — safe recovery,غیر متوقع خرابی,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-015,Malformed response,غلط جواب,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P2,C
+ERR-016,"Booking saved, ticket not loaded",بکنگ محفوظ، ٹکٹ لوڈ نہیں,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P0,C
+ERR-017,Device time looks wrong,ڈیوائس کا وقت غلط,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P2,P+N
+ERR-018,Low storage / memory,کم اسٹوریج / میموری,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P2,P+N
+ERR-019,Background restriction for GPS,بیک گراؤنڈ پابندی,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,P+N
+ERR-020,No assigned trip (action blocked),کوئی سفر تفویض نہیں,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C
+ERR-021,Driver not approved (action blocked),ڈرائیور منظور نہیں,Shared (recovery),F13 Cross-cutting full-screen states & recovery,P1,C

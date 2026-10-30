@@ -1,0 +1,12 @@
+‎anon key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inluc3F2cHpqdHVvZWVhaXZpYnF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODI0MjYsImV4cCI6MjEwODM1ODQyNn0.xhBQouK02X9cOAq3Q7_LQqUosRz25ohQnjeZ717JL5A
+‎
+‎
+‎project url
+‎
+‎https://ynsqvpzjtuoeeaivibqt.supabase.co
+‎
+‎
+‎
+‎
+service role key
+‎  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inluc3F2cHpqdHVvZWVhaXZpYnF0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5Mjc4MjQyNiwiZXhwIjoyMTA4MzU4NDI2fQ.KNyhx1s_Vz-v1r4oUs5CZMdBMP3sSFu93ddIaxfCVQc

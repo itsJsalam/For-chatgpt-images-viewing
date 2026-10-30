@@ -1,0 +1,272 @@
+VASH SAFAR (Vashسفر)
+PASSENGER + DRIVER ANDROID APP
+CONSOLIDATED PRODUCT SPECIFICATION
+Status: Product decisions consolidated; technical and launch verification remains
+Date: 2026-10-30
+
+IMPORTANT STATUS NOTE
+This document describes the agreed product requirements. It does not prove that an app, backend, payment integration, or production service has been built or tested. Technical feasibility, provider availability, security, legal compliance, and production readiness must be verified during implementation.
+
+1. CURRENT SCOPE
+
+1.1 In scope
+- One Android application with separate Passenger and Driver experiences, navigation, permissions, and role-appropriate information.
+- Passenger journey discovery, booking, seat allocation, payment flow, tickets, trip history, support, and settings.
+- Driver application/onboarding, approval status, assigned journeys, passenger manifest access according to permissions, ticket scanning/boarding, trip records, and incident reporting.
+- The necessary backend and data model to support secure bookings, seats, trips, tickets, and role-based access.
+- Controlled APK testing before any public release.
+
+1.2 Explicitly out of scope for this release
+- The separate Vashsafar Admin operations app.
+- The separate private Silent Owner website.
+- Home pickup.
+- A dedicated female-seat preference feature.
+- Public app-store release as the initial distribution method.
+- Vehicle categories other than cars and buses until deliberately configured and operationally ready.
+
+The Passenger + Driver app must not expose Admin or Silent Owner controls. Those products are postponed and must not be represented as included deliverables.
+
+2. PRODUCT PURPOSE AND SERVICE AVAILABILITY
+
+Vashسفر is a premium, safety-focused intercity transport and seat-booking platform intended for Pakistan. The initial service focus is routes from Quetta to configured destinations throughout Pakistan. A route, city, vehicle, stop, or departure is bookable only after it has actually been configured, verified as required, and published. Sample routes in designs are examples, not proof of live service.
+
+The app supports cars and buses initially. The company must enable services only when the vehicle, seat layout, schedule, route, stops, fare, and operational arrangements are ready.
+
+3. DESIGN, LANGUAGE, AND ACCESSIBILITY
+
+- Use a clean, professional, premium navy-blue visual direction with large illustrated cards and clear actions, inspired by the general ease-of-use of the reference style without copying another company's branding or artwork.
+- Make the passenger interface easy to understand for people with limited reading skills. Use clear labels, recognizable illustrations/icons, adequate touch targets, and helpful error/recovery messages.
+- Support English and Urdu, including correct right-to-left layout for Urdu. Offer language choice on first use and allow it to be changed in Settings.
+- Optional voice guidance/search may be included only if technically supported and reliable; manual navigation must remain available.
+- Do not assume every blueprint string has a correct Urdu translation. Complete and review localization before release.
+
+4. ACCOUNTS AND AUTHENTICATION
+
+- Passenger sign-in uses a phone number and SMS one-time passcode (OTP).
+- Passengers must sign in before browsing available journeys, as previously decided.
+- The booking person has a verified phone number and profile name. Each passenger ticket requires that passenger's full name.
+- A passenger may book for themselves, family, friends, or other travellers. Do not require every traveller to have a separate app account or phone number unless a verified legal or operational need is documented.
+- Do not expose private driver identity documents or unnecessary personal data to passengers.
+- OTP delivery is a planned capability; provider access, reliability, rate limits, abuse prevention, and production cost must be verified. Free/test alternatives may be used during development without pretending they are production SMS delivery.
+
+5. PASSENGER NAVIGATION AND HOME
+
+Passenger bottom navigation:
+- Home
+- My Trips
+- My Tickets
+- Help
+- Settings
+
+The home screen must prominently feature “Book a Journey” and provide clear shortcuts to tickets, trips, and help. Keep the main task obvious and avoid clutter.
+
+6. JOURNEY DISCOVERY AND BOOKING
+
+- Present available services through a Province/Region → City → Vehicle Category → Available Journeys flow.
+- Province/region selection may use illustrated cards; city selection may combine cards with search; vehicle categories use clear cards; journey results use detailed premium cards.
+- Only show configured and published cities, routes, stops, vehicle categories, and departures.
+- Journey cards should show fare, departure time, estimated arrival, estimated duration, available seats, and configured intermediate stops/times where relevant and available.
+- Support one-way and return bookings, but a return leg is available only when a service is configured in that direction.
+- Advance booking may be available up to two months ahead for configured/published journeys.
+- The company can configure booking cutoff rules per service. Exact cutoff values are operational configuration, not fixed globally in this specification.
+- Support full-route bookings and eligible partial-route/segment bookings where configured stops and service rules permit them.
+- Clearly show boarding stop, destination stop, direction, fare, date, departure time, and any relevant stop/timing information before payment and on the ticket.
+- Intermediate stops and times must come from authorized service configuration. Estimates must be labelled as estimates and are not guarantees.
+- No home pickup in the initial release. Boarding is at configured stops or terminals.
+
+7. PASSENGERS, BOOKINGS, AND TICKETS
+
+- One booking may cover multiple passengers, but create a separate individual passenger ticket and QR code for each traveller.
+- Passengers may cancel an individual ticket or the entire booking, subject to the agreed cancellation policy and applicable company-caused-change protections.
+- Ticket and booking records must clearly distinguish booking status, payment status, seat status, cancellation/refund status, and boarding status.
+- Provide access to current tickets and trip history through My Tickets and My Trips.
+- Do not represent a counter/offline booking as confirmed until the server has validated inventory and the booking is safely recorded.
+
+8. SEATS AND VEHICLE LAYOUTS
+
+8.1 Standard car
+- Baseline layout: five seats total, including the driver seat.
+- The driver seat is never sold.
+- One front passenger seat and three rear passenger seats are passenger positions in the standard layout.
+- Authorized configuration may reflect a real vehicle's verified layout, but must never make the driver seat bookable. The configured map and capacity must match the actual vehicle before publication.
+
+8.2 Bus
+- Provide common predefined bus-seat layout templates, with authorized adjustments for the actual verified bus.
+- A published bus's map and passenger capacity must match the physical vehicle. Never sell seats that do not exist or are unavailable.
+- Changes to layouts must be permission-controlled and audited. If booked passengers are affected, use a safe resolution process; never silently delete or move confirmed seats.
+
+8.3 Seat selection and holds
+- When seat selection is enabled for a service, show a visual seat map and a simple seat-list alternative where practical.
+- Where passenger seat selection is disabled, assign a seat automatically and show it before confirmation.
+- Distinguish available, selected, temporarily held, booked/unavailable, and non-bookable positions.
+- Hold a selected seat for ten minutes. The server is authoritative for holds and availability.
+- Validate seat inventory atomically on the server to prevent simultaneous bookings of the same seat/segment.
+- If a hold expires or is lost, explain what happened and refresh authoritative inventory before allowing another attempt.
+- For partial-route bookings, segment inventory must prevent overlapping bookings on the same seat while permitting reuse on non-overlapping segments when the service configuration allows it.
+
+9. FARES AND CHECKOUT
+
+- Display the ticket rate at checkout. Do not add a separate highway or toll-fee line.
+- Completely remove the previous PKR 500 extra-bag charge system; do not reintroduce it under another name.
+- The 10 kg per-seat luggage limit belongs in Help and the Privacy Policy as previously specified, not in checkout.
+- No unapproved extra luggage fee is permitted. Authorized staff may handle exceptional luggage only under a documented company policy; any future fee or changed limit requires an explicit new decision and appropriate disclosure.
+- Fare calculation, partial-segment pricing, return-leg pricing, and rounding must be consistent, auditable, and server-authoritative. Exact route fares are configured operational data, not invented by the app.
+
+10. PAYMENT AND REFUNDS
+
+Intended payment methods:
+- JazzCash
+- Easypaisa
+- Cash at authorized company counters
+
+Production integrations are not assumed to exist. During development, use free/test/sandbox options or clearly labelled simulations where available. A simulated payment must never be shown as a real production payment.
+
+Payment safety requirements:
+- Verify provider availability in Pakistan, merchant onboarding, API requirements, fees, settlement, refund support, webhooks/callbacks, reconciliation, and dispute handling before selecting production integrations.
+- If a payment result is uncertain, verify its status with the provider before retrying. Do not tell a passenger to pay again while the first payment may have succeeded.
+- Refund to the original JazzCash/Easypaisa method whenever the provider supports it and the route is verified. Explain the refund status accurately.
+- Counter cash sales must be recorded by authorized staff and reconciled; the app must distinguish a recorded cash payment from a payment that is still pending verification.
+
+11. CANCELLATION, CHANGES, AND DISRUPTIONS
+
+11.1 Passenger cancellation policy already agreed
+- If cancelled within the first eight hours after booking confirmation: 100% refund.
+- After the first eight hours: 75% refund and 25% retained.
+- Exactly eight hours falls into the after-first-eight-hours rule: 75% refund.
+- The timer starts at booking confirmation, not departure time.
+- A passenger may cancel an individual ticket or the whole booking.
+- Refund processing and timing depend on verified payment-provider capabilities; status must be communicated honestly.
+
+11.2 No-show
+- No automatic refund for passenger no-show for reasons within the passenger's control.
+- Provide a way to request review of an exceptional no-show dispute.
+
+11.3 Passenger date change
+- Allow travel-date changes where seats are available and the service rules permit them.
+- Show any fare difference transparently. No change fee has been approved in this specification.
+
+11.4 Company-caused schedule change
+- Notify affected passengers when departure time changes.
+- Let the passenger accept the changed schedule or request cancellation under the protected company-change policy.
+- Exact material-change thresholds, response deadlines, and final refund mechanics remain technical/operational launch details to define; do not invent them silently.
+
+11.5 Breakdown or inability to operate
+- Try to arrange a suitable replacement vehicle/driver.
+- Offer a suitable later departure where appropriate.
+- If no acceptable alternative is available, provide a full refund under the agreed policy.
+- Drivers report inability to operate; authorized staff handle official cancellation, replacement, and passenger communication. A driver must not silently cancel a published service.
+
+12. DRIVER EXPERIENCE AND APPROVAL
+
+Driver bottom navigation:
+- Home
+- My Trips
+- Trip Records
+- Help
+- Settings
+
+Driver onboarding and operation:
+- Drivers apply and must be verified and approved by the company before operating journeys.
+- Required application information includes CNIC, valid driving licence, driver photo, verified mobile number, and any additional documents required by the company or applicable law.
+- Protect submitted documents and restrict access to authorized personnel. Do not expose full CNIC details or private documents to passengers.
+- Staff assign journeys; approved drivers may accept assignments made available to them under configured assignment rules.
+- Drivers can view their assigned journeys and the passenger manifest/ticket information needed for operation, subject to role-based permissions and data minimization.
+- Drivers can report delays, emergencies, breakdowns, and inability to operate.
+- Official route and schedule changes require authorization, except immediate actions necessary for safety.
+- Passenger-facing driver/vehicle details should include only verified details needed for trust and coordination. Exact display fields should be selected during implementation using data minimization and safety review.
+
+13. TICKET SCANNING AND BOARDING
+
+- Staff and drivers may scan tickets according to their permissions.
+- Record who scanned/boarded a ticket and when; maintain an audit trail.
+- Prevent duplicate boarding where online/server validation is available.
+- Controlled offline boarding may use ticket data already stored on the device. Store offline events securely and synchronize them later.
+- Clearly warn users that disconnected devices cannot guarantee global duplicate-boarding prevention until synchronization. Provide conflict resolution and audit records after sync.
+- Offline/counter ticket sales remain pending until the server validates inventory; do not show them as confirmed before that validation.
+
+14. SOS, EMERGENCIES, AND LOCATION
+
+- SOS should alert the designated company operations/emergency team and show delivery/status information only to the extent verifiable.
+- Sharing live location with personal emergency contacts is permitted only when the passenger has explicitly enabled and approved the feature.
+- Do not silently share location, and do not claim emergency response is guaranteed.
+- Define the actual company escalation tree, contact ownership, hours, response process, connectivity-failure behavior, and emergency-service disclaimers before launch.
+- GPS/location permission, retention, background access, battery use, and maps provider selection require technical and privacy verification.
+- Existing retention rule: ordinary trip history 90 days; SOS/breakdown records one year, followed by review. Verify legal requirements and implementation feasibility before production.
+
+15. LUGGAGE
+
+- 10 kg per seat as the stated luggage limit.
+- Mention this in Help and the Privacy Policy only, not checkout.
+- No PKR 500 extra-bag charge or replacement version of that fee.
+- Exceptions are handled only under documented company policy by authorized personnel, without inventing a fee.
+
+16. PRIVACY, SECURITY, AND RELIABILITY REQUIREMENTS
+
+- Apply role-based access control to Passenger and Driver functions and data.
+- Keep secrets, API keys, signing keys, and privileged credentials out of the client app and public frontend.
+- Protect sensitive driver documents and passenger information; collect only what is needed.
+- Use server-authoritative checks for fares, seat holds, booking confirmation, payment state, ticket status, cancellation eligibility, and boarding validation.
+- Audit security-sensitive operations and provide safe recovery/error states.
+- Use secure transport, protected local storage, rate limiting and abuse controls where appropriate; verify implementation through testing.
+- Design offline functionality to disclose limitations rather than promising guarantees that cannot be provided without connectivity.
+- Backups, recovery, retention, export/deletion, complaint handling, and final legal/privacy wording need verification before launch.
+
+17. DEVELOPMENT COST AND DISTRIBUTION POLICY
+
+- Development is free-first: use free services, free tiers, local tools, and free alternatives where viable.
+- Do not incur charges, create paid commitments, or purchase services during development without explicit approval.
+- After the app is complete, the user intends to add necessary paid production services. Before activation, compare current pricing, provider availability in Pakistan, quotas, limitations, security, and alternatives, and obtain approval for specific spending.
+- Keep provider integrations modular where practical so production services can be enabled later.
+- Start with controlled APK-based testing and selected testers. Public distribution is not yet approved.
+- Secure APK signing keys, control test builds, document versioning, and protect testers from untrusted builds.
+
+18. TECHNICAL DIRECTION — PROVISIONAL, NOT YET FINAL
+
+The prior working direction was Kotlin/Jetpack Compose for Android and Supabase/PostgreSQL for backend/data services. These are provisional choices and must be checked against the app's security, offline, booking-concurrency, cost, and maintainability requirements before final commitment. A suitable backend must enforce transactional seat allocation, server-side authorization, payment verification, ticket state, and auditability. No technology name in this section means it has already been deployed.
+
+19. DEFERRED FEATURES AND NON-GOALS
+
+- Home pickup.
+- Dedicated female-seat preference or matching.
+- Vehicle categories beyond cars and buses until operational readiness and explicit configuration.
+- Public app-store release until after controlled APK testing and a later release decision.
+- Separate Admin app and Silent Owner website, to be planned only after this Passenger + Driver app priority is completed.
+- Any new fees, paid features, or changes to the cancellation/luggage policies that have not been explicitly approved.
+
+20. TECHNICAL VERIFICATION AND LAUNCH GATES
+
+These are not reasons to reopen the user's product idea. They are engineering and operational tasks to resolve and document during implementation:
+- Validate OTP provider options, deliverability, abuse controls and production costs.
+- Validate payment-provider merchant onboarding, API/webhook security, reconciliation and refunds.
+- Define service-specific booking cutoffs, route/stop data, fare rules, segment allocation and vehicle seat templates.
+- Define company SOS escalation, emergency contacts, consent and location-sharing behavior.
+- Review privacy, CNIC/document handling, retention, local legal requirements and transport operating obligations with appropriate expertise.
+- Test simultaneous seat bookings, ten-minute holds, segment conflicts, expired holds, payment uncertainty, cancellations/refunds, QR duplication, offline sync and schedule changes.
+- Complete Urdu translation and RTL review; audit accessibility, low-literacy usability and error/recovery screens.
+- Test on supported Android devices, network-loss scenarios, low-end hardware and APK update/signing workflows.
+- Establish backups, monitoring, incident response, account recovery and secure configuration before production.
+- Do not claim a feature is complete until implemented and tested. Keep prototype/mock behavior visibly distinct from production behavior.
+
+21. PRODUCT DECISIONS CHECKLIST
+
+Confirmed:
+- Phone + SMS OTP sign-in.
+- Booking for self or other travellers; one individual ticket/QR per passenger.
+- JazzCash, Easypaisa and authorized counter cash are intended payment methods, subject to production verification.
+- Ten-minute seat hold and server-authoritative availability.
+- One-way and return journeys where configured; advance booking up to two months; service-specific booking cutoff.
+- Passenger may cancel an individual ticket or entire booking; the previously agreed refund policy applies.
+- Passenger date changes where seats are available, with transparent fare differences.
+- Company-caused schedule changes trigger notification and an option to accept or request protected cancellation.
+- Breakdown handling includes replacement attempts and full refund if no acceptable alternative is available.
+- Driver application, document verification, company approval, assignment rules and controlled boarding.
+- Cars and buses initially; verified configurable seat layouts; full-route and eligible partial-route bookings.
+- Route stops and estimated timings come only from configured service data.
+- Luggage limit 10 kg per seat; no PKR 500 extra-bag charge; no toll fee line at checkout.
+- No home pickup initially; no dedicated female-seat preference initially.
+- SOS to company team; personal-contact location sharing only with explicit passenger approval.
+- Free-first development; paid services considered after completion and only after checking costs and obtaining approval before spending.
+- Controlled APK testing first.
+- Current priority is Passenger + Driver only; Admin and Silent Owner are postponed.
+
+END OF CONSOLIDATED SPECIFICATION
